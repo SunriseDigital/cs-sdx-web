@@ -8,11 +8,12 @@ namespace Sdx.WebLib.Control.Scaffold
 {
   public partial class List : System.Web.UI.UserControl
   {
-    protected Sdx.Web.Scaffold scaffold;
+    protected dynamic scaffold;
 
     protected void Page_Load(object sender, EventArgs e)
     {
-      this.scaffold = Sdx.Web.Scaffold.Instance(this.Name);
+      dynamic instances = (dynamic)Sdx.Context.Current.Vars[Sdx.Web.Scaffold<Sdx.Db.Record>.CONTEXT_KEY];
+      this.scaffold = instances[this.Name];
     }
 
     public string Name { get; set; }

@@ -2,7 +2,7 @@
 
 <div>list</div>
 <ul>
-<% scaffold.List.ForEach((record) =>{ %>
-   <li></li>
-<% }); %>
+<% scaffold.List.ForEach((Action<Sdx.Db.Record>)((record) =>{ %>
+   <li><%= record.GetString("name") %></li>
+<% })); %>
 </ul>
