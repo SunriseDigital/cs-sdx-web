@@ -1,8 +1,14 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="list.ascx.cs" Inherits="Sdx.WebLib.Control.Scaffold.List" %>
 
-<div>list</div>
+<div><%= scaffold.Title %>リスト</div>
 <ul>
-<% scaffold.List.ForEach((Action<Sdx.Db.Record>)((record) =>{ %>
-   <li><%= record.GetString("name") %></li>
-<% })); %>
+<% foreach(Sdx.Db.Record record in scaffold.List){ %>
+   <li>
+     <% foreach(Dictionary<string, string> data in scaffold.ListColumns){ %>
+     <div>
+        <%= record.GetString(data["column"]) %>
+     </div>
+     <% } %>
+   </li>
+<% } %>
 </ul>
