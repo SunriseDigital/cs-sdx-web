@@ -2,11 +2,11 @@
 
 <div><%= scaffold.Title %>リスト</div>
 <ul>
-<% foreach(Sdx.Db.Record record in scaffold.List){ %>
+<% foreach(Sdx.Db.Record record in scaffold.RecordSet){ %>
    <li>
-     <% foreach(Dictionary<string, string> data in scaffold.ListColumns){ %>
+     <% foreach(Sdx.Collection.Holder data in scaffold.ListColumns){ %>
      <div>
-        <%= record.GetString(data["column"]) %>
+        <%= record.GetString(data.As<string>("hoge")) %>
      </div>
      <% } %>
    </li>
