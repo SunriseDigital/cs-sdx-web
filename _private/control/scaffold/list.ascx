@@ -4,7 +4,7 @@
 <ul>
 <% foreach(var record in scaffold.RecordSet){ %>
    <li>
-     <% foreach(var data in scaffold.ListColumns){ %>
+     <% foreach(var data in scaffold.DisplayList){ %>
      <div>
         <%= record.GetString(data["column"]) %>
      </div>
