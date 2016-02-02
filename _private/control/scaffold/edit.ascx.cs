@@ -13,7 +13,6 @@ namespace Sdx.WebLib.Control.Scaffold
 
     protected void Page_Load(object sender, EventArgs e)
     {
-      Sdx.Context.Current.Debug.Log(Request.Url.PathAndQuery);
       dynamic instances = (dynamic)Sdx.Context.Current.Vars[Sdx.Scaffold.Manager<Sdx.Db.Record>.CONTEXT_KEY];
       this.scaffold = instances[this.Name];
     }
