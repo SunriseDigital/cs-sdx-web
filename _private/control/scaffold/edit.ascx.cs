@@ -9,12 +9,11 @@ namespace Sdx.WebLib.Control.Scaffold
 {
   public partial class Edit : System.Web.UI.UserControl
   {
-    protected dynamic scaffold;
+    protected Sdx.Scaffold.Manager scaffold;
 
     protected void Page_Load(object sender, EventArgs e)
     {
-      dynamic instances = (dynamic)Sdx.Context.Current.Vars[Sdx.Scaffold.Manager<Sdx.Db.Record>.CONTEXT_KEY];
-      this.scaffold = instances[this.Name];
+      this.scaffold = Sdx.Scaffold.Manager.CurrentInstance(this.Name);
 
       var form = this.scaffold.BuildForm();
 

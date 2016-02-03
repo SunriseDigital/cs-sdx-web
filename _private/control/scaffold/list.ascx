@@ -2,7 +2,7 @@
 
 <div><%= scaffold.Title %>リスト</div>
 <ul>
-<% foreach(var record in scaffold.RecordSet){ %>
+<% foreach(Sdx.Db.Record record in scaffold.RecordSet){ %>
    <li>
      <% foreach(var data in scaffold.DisplayList){ %>
      <div>
