@@ -15,6 +15,17 @@ namespace Sdx.WebLib.Control.Scaffold
     {
       dynamic instances = (dynamic)Sdx.Context.Current.Vars[Sdx.Scaffold.Manager<Sdx.Db.Record>.CONTEXT_KEY];
       this.scaffold = instances[this.Name];
+
+      var form = this.scaffold.BuildForm();
+
+      if (Request.Form.Count > 0)
+      {
+        form.Bind(Request.Form);
+        if (form.ExecValidators())
+        {
+          Sdx.Context.Current.Debug.Log("Is Valid !!");
+        }
+      }
     }
 
     public string Name { get; set; }

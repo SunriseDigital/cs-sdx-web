@@ -4,13 +4,12 @@
 
 <div>
   <form action="<%=Request.Url.PathAndQuery %>" method="post">
-    <%foreach(var item in scaffold.BuildFormItems()){ %>
-    <% var elem = item.CreateElement(); %>
+    <%foreach(var elem in scaffold.Form){ %>
       <%if (elem is Sdx.Html.InputHidden){ %>
         <%=elem.Tag.Render(Sdx.Html.Attr.Create().AddClass("form-control")) %>
       <% }else{ %>
         <div class="form-group">
-          <label><%=item.Label %></label>
+          <label><%=elem.Label %></label>
           <%=elem.Tag.Render(Sdx.Html.Attr.Create().AddClass("form-control")) %>
         </div>
       <%} %>
