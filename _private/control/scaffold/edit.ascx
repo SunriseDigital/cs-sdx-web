@@ -4,7 +4,7 @@
 
 <div>
   <form action="<%=Request.Url.PathAndQuery %>" method="post">
-    <%foreach(var elem in scaffold.Form){ %>
+    <%foreach(var elem in form){ %>
       <%if (elem is Sdx.Html.InputHidden){ %>
         <%=elem.Tag.Render(Sdx.Html.Attr.Create().AddClass("form-control")) %>
       <% }else{ %>

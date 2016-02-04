@@ -10,21 +10,34 @@ namespace Sdx.WebLib.Control.Scaffold
   public partial class Edit : System.Web.UI.UserControl
   {
     protected Sdx.Scaffold.Manager scaffold;
+    protected Sdx.Html.Form form;
 
     protected void Page_Load(object sender, EventArgs e)
     {
       this.scaffold = Sdx.Scaffold.Manager.CurrentInstance(this.Name);
 
-      var form = this.scaffold.BuildForm();
+      this.form = this.scaffold.BuildForm();
+      var record = this.scaffold.LoadRecord(Request.Params);
 
       if (Request.Form.Count > 0)
       {
         form.Bind(Request.Form);
         if (form.ExecValidators())
         {
-          Sdx.Context.Current.Debug.Log("Is Valid !!");
+          record.Bind(Request.Form);
+          using (var conn = scaffold.Db.CreateConnection())
+          {
+            conn.Open();
+            conn.BeginTransaction();
+            conn.Save(record);
+            conn.Commit();
+          }
+
+          Response.Redirect(scaffold.ReturnUrl.Build());
         }
       }
+
+      Sdx.Context.Current.Debug.Log(record);
     }
 
     public string Name { get; set; }
