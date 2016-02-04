@@ -9,6 +9,9 @@
         <%= record.GetString(data["column"]) %>
      </div>
      <% } %>
+     <div>
+       <a href="<%=scaffold.EditPage.Build(new Dictionary<string, string> { {"id", record.GetString("id")} })%>">編集</a>
+     </div>
    </li>
 <% } %>
 </ul>

@@ -15,9 +15,16 @@ namespace Sdx.WebLib.Control.Scaffold
     protected void Page_Load(object sender, EventArgs e)
     {
       this.scaffold = Sdx.Scaffold.Manager.CurrentInstance(this.Name);
+      this.scaffold.EditPage = new Web.Url(Request.Url.PathAndQuery);
+      if (this.scaffold.ListPage == null)
+      {
+        this.scaffold.ListPage = new Web.Url(Request.Url.PathAndQuery);
+      }
 
       this.form = this.scaffold.BuildForm();
       var record = this.scaffold.LoadRecord(Request.Params);
+
+      form.Bind(record.ToNameValueCollection());
 
       if (Request.Form.Count > 0)
       {
@@ -35,7 +42,7 @@ namespace Sdx.WebLib.Control.Scaffold
 
           if(!Sdx.Context.Current.IsDebugMode)
           {
-            Response.Redirect(scaffold.ReturnUrl.Build());
+            Response.Redirect(scaffold.ListPage.Build());
           }
         }
       }

@@ -13,6 +13,11 @@ namespace Sdx.WebLib.Control.Scaffold
     protected void Page_Load(object sender, EventArgs e)
     {
       this.scaffold = Sdx.Scaffold.Manager.CurrentInstance(this.Name);
+      this.scaffold.ListPage = new Web.Url(Request.Url.PathAndQuery);
+      if(this.scaffold.EditPage == null)
+      {
+        this.scaffold.EditPage = new Web.Url(Request.Url.PathAndQuery);
+      }
     }
 
     public string Name { get; set; }
