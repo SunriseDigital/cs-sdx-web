@@ -33,7 +33,10 @@ namespace Sdx.WebLib.Control.Scaffold
             conn.Commit();
           }
 
-          Response.Redirect(scaffold.ReturnUrl.Build());
+          if(!Sdx.Context.Current.IsDebugMode)
+          {
+            Response.Redirect(scaffold.ReturnUrl.Build());
+          }
         }
       }
 
