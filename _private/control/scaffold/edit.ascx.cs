@@ -15,11 +15,13 @@ namespace Sdx.WebLib.Control.Scaffold
     protected void Page_Load(object sender, EventArgs e)
     {
       this.scaffold = Sdx.Scaffold.Manager.CurrentInstance(this.Name);
-      this.scaffold.EditPage = new Web.Url(Request.Url.PathAndQuery);
-      if (this.scaffold.ListPage == null)
+      this.scaffold.EditPageUrl = new Web.Url(Request.Url.PathAndQuery);
+      if (this.scaffold.ListPageUrl == null)
       {
-        this.scaffold.ListPage = new Web.Url(Request.Url.PathAndQuery);
+        this.scaffold.ListPageUrl = new Web.Url(Request.Url.PathAndQuery);
       }
+
+      scaffold.InitGroup();
 
       this.form = this.scaffold.BuildForm();
       var record = this.scaffold.LoadRecord(Request.Params);
@@ -42,7 +44,7 @@ namespace Sdx.WebLib.Control.Scaffold
 
           if(!Sdx.Context.Current.IsDebugMode)
           {
-            Response.Redirect(scaffold.ListPage.Build());
+            Response.Redirect(scaffold.ListPageUrl.Build());
           }
         }
       }

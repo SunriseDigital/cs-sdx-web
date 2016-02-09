@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="edit.ascx.cs" Inherits="Sdx.WebLib.Control.Scaffold.Edit" %>
 
-<div><%=scaffold.Title %></div>
+<div><%if(scaffold.Group != null && scaffold.Group.TargetValue != null){ %><%=scaffold.Group.Name %> <%} %><%=scaffold.Title %></div>
 
 <div>
   <form action="<%=Request.Url.PathAndQuery %>" method="post">
@@ -16,7 +16,7 @@
     <%} %>
     <div class="row">
       <div class="col-xs-4">
-        <a class="btn btn-default" href="<%=scaffold.ListPage.Build() %>">戻る</a>
+        <a class="btn btn-default" href="<%=scaffold.ListPageUrl.Build() %>">戻る</a>
       </div>
       <div class="col-xs-4 text-center">
         <input type="submit" name="submit" value="保存" class="btn btn-danger">
