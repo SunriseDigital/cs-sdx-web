@@ -10,6 +10,7 @@ namespace Sdx.WebLib.Control.Scaffold
   {
     protected Sdx.Scaffold.Manager scaffold;
     protected dynamic recordSet;
+    protected Sdx.Html.Select groupSelector;
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -21,6 +22,7 @@ namespace Sdx.WebLib.Control.Scaffold
       }
 
       scaffold.InitGroup();
+      groupSelector = scaffold.Group != null && scaffold.Group.HasSelector ? scaffold.Group.BuildSelector() : null;
 
       this.recordSet = scaffold.FetchRecordSet();
     }

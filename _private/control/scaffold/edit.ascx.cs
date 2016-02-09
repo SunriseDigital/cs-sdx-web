@@ -21,8 +21,6 @@ namespace Sdx.WebLib.Control.Scaffold
         this.scaffold.ListPageUrl = new Web.Url(Request.Url.PathAndQuery);
       }
 
-      scaffold.InitGroup();
-
       this.form = this.scaffold.BuildForm();
       var record = this.scaffold.LoadRecord(Request.Params);
 
