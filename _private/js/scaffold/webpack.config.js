@@ -1,3 +1,5 @@
+var webpack = require("webpack");
+
 module.exports = {
   entry: __dirname + '/app.es6',
   output: {
@@ -20,5 +22,8 @@ module.exports = {
       },
       exclude: /node_modules/
     }]
-  }
+  },
+  plugins: process.env.PROD_DEV != 'dev' ? [
+    new webpack.optimize.UglifyJsPlugin({minimize: true})
+  ] : []
 }
