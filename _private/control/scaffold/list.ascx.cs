@@ -21,7 +21,11 @@ namespace Sdx.WebLib.Control.Scaffold
         this.scaffold.EditPageUrl = new Web.Url(Request.Url.PathAndQuery);
       }
 
-      groupSelector = scaffold.InitGroup();
+      if (scaffold.Group != null)
+      {
+        scaffold.Group.Init();
+        groupSelector = scaffold.Group.BuildSelector();
+      }
 
       this.recordSet = scaffold.FetchRecordSet();
     }
