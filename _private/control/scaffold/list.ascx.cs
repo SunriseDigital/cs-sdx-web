@@ -15,8 +15,9 @@ namespace Sdx.WebLib.Control.Scaffold
     protected void Page_Load(object sender, EventArgs e)
     {
       this.scaffold = Sdx.Scaffold.Manager.CurrentInstance(this.Name);
+
       this.scaffold.ListPageUrl = new Web.Url(Request.Url.PathAndQuery);
-      if(this.scaffold.EditPageUrl == null)
+      if (this.scaffold.EditPageUrl == null)
       {
         this.scaffold.EditPageUrl = new Web.Url(Request.Url.PathAndQuery);
       }
@@ -27,7 +28,11 @@ namespace Sdx.WebLib.Control.Scaffold
         groupSelector = scaffold.Group.BuildSelector();
       }
 
-      this.recordSet = scaffold.FetchRecordSet();
+      using (var conn = scaffold.Db.CreateConnection())
+      {
+        conn.Open();
+        this.recordSet = scaffold.FetchRecordSet(conn);
+      }
     }
 
     public string Name { get; set; }

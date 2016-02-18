@@ -26,33 +26,41 @@ namespace Sdx.WebLib.Control.Scaffold
         scaffold.Group.Init();
       }
 
-      this.form = this.scaffold.BuildForm();
-      var record = this.scaffold.LoadRecord(Request.Params);
-
-      form.Bind(record.ToNameValueCollection());
-
-      if (Request.Form.Count > 0)
+      using(var conn = scaffold.Db.CreateConnection())
       {
-        form.Bind(Request.Form);
-        if (form.ExecValidators())
-        {
-          record.Bind(Request.Form);
-          using (var conn = scaffold.Db.CreateConnection())
-          {
-            conn.Open();
-            conn.BeginTransaction();
-            conn.Save(record);
-            conn.Commit();
-          }
+        conn.Open();
+        var record = this.scaffold.LoadRecord(Request.Params, conn);
+        this.form = this.scaffold.BuildForm(record);
 
-          if(!Sdx.Context.Current.IsDebugMode)
+        form.Bind(record.ToNameValueCollection());
+
+        if (Request.Form.Count > 0)
+        {
+          form.Bind(Request.Form);
+          if (form.ExecValidators())
           {
-            Response.Redirect(scaffold.ListPageUrl.Build());
+            conn.BeginTransaction();
+            try
+            {
+              scaffold.Save(record, Request.Form, conn);
+              conn.Commit();
+            }
+            catch (Exception ex)
+            {
+              conn.Rollback();
+              throw ex;
+            }
+
+            if (!Sdx.Context.Current.IsDebugMode)
+            {
+              Response.Redirect(scaffold.ListPageUrl.Build());
+            }
           }
         }
+
+        Sdx.Context.Current.Debug.Log(record);
       }
 
-      Sdx.Context.Current.Debug.Log(record);
     }
 
     public string Name { get; set; }
