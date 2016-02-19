@@ -22,15 +22,16 @@ namespace Sdx.WebLib.Control.Scaffold
         this.scaffold.EditPageUrl = new Web.Url(Request.Url.PathAndQuery);
       }
 
-      if (scaffold.Group != null)
-      {
-        scaffold.Group.Init();
-        groupSelector = scaffold.Group.BuildSelector();
-      }
-
       using (var conn = scaffold.Db.CreateConnection())
       {
         conn.Open();
+        
+        if (scaffold.Group != null)
+        {
+          scaffold.Group.Init();
+          groupSelector = scaffold.Group.BuildSelector(conn);
+        }
+
         this.recordSet = scaffold.FetchRecordSet(conn);
       }
     }

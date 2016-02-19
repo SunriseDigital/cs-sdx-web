@@ -30,7 +30,7 @@ namespace Sdx.WebLib.Control.Scaffold
       {
         conn.Open();
         var record = this.scaffold.LoadRecord(Request.Params, conn);
-        this.form = this.scaffold.BuildForm(record);
+        this.form = this.scaffold.BuildForm(record, conn);
 
         form.Bind(record.ToNameValueCollection());
 
