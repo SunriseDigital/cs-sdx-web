@@ -11,7 +11,7 @@
      <li>
        <% foreach(var data in scaffold.DisplayList){ %>
        <div>
-          <%= record.GetString(data["column"]) %>
+          <%= record.GetString(data["column"].Value) %>
        </div>
        <% } %>
        <div>
