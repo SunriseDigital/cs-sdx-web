@@ -32,8 +32,6 @@ namespace Sdx.WebLib.Control.Scaffold
         var record = this.scaffold.LoadRecord(Request.Params, conn);
         this.form = this.scaffold.BuildForm(record, conn);
 
-        form.Bind(record.ToNameValueCollection());
-
         if (Request.Form.Count > 0)
         {
           form.Bind(Request.Form);
