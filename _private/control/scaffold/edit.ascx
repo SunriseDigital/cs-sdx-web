@@ -10,7 +10,18 @@
       <% }else{ %>
         <div class="form-group">
           <label><%=elem.Label %></label>
-          <%=elem.Tag.Render(Sdx.Html.Attr.Create().AddClass("form-control")) %>
+          <%if(elem is Sdx.Html.CheckableGroup){ %>
+            <%elem.Tag.ForEach(child =>{%>
+            <div class="<%= child.Children.First().Attr["type"]%>">
+              <%=child.Render() %>
+            </div>
+            <%}); %>
+          <%} else { %>
+            <%=elem.Tag.Render(Sdx.Html.Attr.Create().AddClass("form-control")) %>
+          <%} %>
+          <%if(elem.IsSecret){ %>
+            <p class="notice"><i class="fa fa-exclamation-triangle"></i> 現在の値は表示されません。空送信時は更新されませんのでご注意ください。</p>
+          <%} %>
         </div>
       <%} %>
     <%} %>

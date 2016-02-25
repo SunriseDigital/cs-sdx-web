@@ -40,13 +40,13 @@ namespace Sdx.WebLib.Control.Scaffold
             conn.BeginTransaction();
             try
             {
-              scaffold.Save(record, Request.Form, conn);
+              scaffold.Save(record, form.ToNameValueCollection(), conn);
               conn.Commit();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
               conn.Rollback();
-              throw ex;
+              throw;
             }
 
             if (!Sdx.Context.Current.IsDebugMode)
