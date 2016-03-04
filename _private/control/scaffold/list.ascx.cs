@@ -11,21 +11,22 @@ namespace Sdx.WebLib.Control.Scaffold
     protected Sdx.Scaffold.Manager scaffold;
     protected dynamic recordSet;
     protected Sdx.Html.Select groupSelector;
+    protected Sdx.Db.Connection conn;
 
     protected void Page_Load(object sender, EventArgs e)
     {
-      this.scaffold = Sdx.Scaffold.Manager.CurrentInstance(this.Name);
-
-      this.scaffold.ListPageUrl = new Web.Url(Request.Url.PathAndQuery);
-      if (this.scaffold.EditPageUrl == null)
-      {
-        this.scaffold.EditPageUrl = new Web.Url(Request.Url.PathAndQuery);
-      }
-
-      using (var conn = scaffold.Db.CreateConnection())
+      scaffold = Sdx.Scaffold.Manager.CurrentInstance(this.Name);
+      conn = scaffold.Db.CreateConnection();
+      try
       {
         conn.Open();
-        
+
+        scaffold.ListPageUrl = new Web.Url(Request.Url.PathAndQuery);
+        if (scaffold.EditPageUrl == null)
+        {
+          scaffold.EditPageUrl = new Web.Url(Request.Url.PathAndQuery);
+        }
+
         if (scaffold.Group != null)
         {
           scaffold.Group.Init();
@@ -34,6 +35,17 @@ namespace Sdx.WebLib.Control.Scaffold
 
         this.recordSet = scaffold.FetchRecordSet(conn);
       }
+      catch (Exception)
+      {
+        conn.Dispose();
+        throw;
+      }
+    }
+
+    protected override void OnUnload(EventArgs e)
+    {
+      this.conn.Dispose();
+      base.OnUnload(e);
     }
 
     public string Name { get; set; }

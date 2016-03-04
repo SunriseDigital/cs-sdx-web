@@ -9,9 +9,9 @@
   <ul>
   <% foreach(Sdx.Db.Record record in recordSet){ %>
      <li>
-       <% foreach(var data in scaffold.DisplayList){ %>
+       <% foreach(var item in scaffold.DisplayList){ %>
        <div>
-          <%= record.GetString(data["column"].ToString()) %>
+          <%= item.Display(record, conn) %>
        </div>
        <% } %>
        <div>
