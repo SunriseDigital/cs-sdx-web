@@ -1,5 +1,4 @@
 var webpack = require("webpack");
-var envdev = require('envdev');
 
 module.exports = {
   entry: __dirname + '/app.es6',
@@ -13,7 +12,7 @@ module.exports = {
   externals: {
   },
   watch: true,
-  devtool: envdev.isDev() ? "#inline-source-map" : undefined,
+  devtool: "#inline-source-map",
   module: {
     loaders: [{
       test: /\.es6?$/,
@@ -25,10 +24,5 @@ module.exports = {
       exclude: /node_modules/
     }]
   },
-  plugins: envdev.isDev() ? [
-    //prod
-  ] : [
-    //dev
-    new webpack.optimize.UglifyJsPlugin({minimize: true})
-  ]
+  plugins: []
 }
