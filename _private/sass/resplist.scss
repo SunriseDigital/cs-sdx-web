@@ -1,4 +1,6 @@
-@charset "UTF-8";
+﻿// 画面が小さくても全てのカラムを表示可能なレスポンシブなリスト。
+// デフォルトではカラムの幅は内容物に合わせますので縦がそろいません。
+// 幅を個別に指定するかBootstrap等のgrid systemを指定すると綺麗になります。
 /*<ul id="access-list" class="resplist resplist-striped">
   <li class="resplist-row">
     <div class="resplist-heading">Some Title</div>
@@ -41,114 +43,134 @@
     <div class="resplist-footer">Some Footer</div>
   </li>
 </ul>*/
-.resplist-items:before, .resplist-item:before, .resplist-row:before, .resplist-items:after, .resplist-item:after, .resplist-row:after {
-  content: " ";
-  display: table;
-}
-.resplist-items:after, .resplist-item:after, .resplist-row:after {
-  clear: both;
+
+%clearfix{
+  &:before,
+  &:after {
+    content: " ";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
 }
 
-ul.resplist {
+$resplist_background: #fff !default;
+$resplist_background_odd: #f9f9f9 !default;
+$row_hspace: 20px;
+$row_vspace: 8px;
+
+ul.resplist{
   list-style: none;
   padding: 0;
 }
 
-.resplist-striped .resplist-row:nth-child(odd) {
-  background-color: #f9f9f9;
+.resplist-striped .resplist-row:nth-child(odd){
+  background-color: $resplist_background_odd;
 }
 
-.resplist-heading {
+.resplist-heading{
   font-weight: bold;
-  padding: 8px 20px;
+  padding:$row_vspace $row_hspace;
   overflow: hidden;
   white-space: nowrap;
   border-bottom: 1px dotted #dfdfdf;
   max-width: 100%;
 }
 
-.resplist-footer {
-  padding: 8px 20px;
+.resplist-footer{
+  padding:$row_vspace $row_hspace;
 }
 
-.resplist-label {
+.resplist-items{
+  @extend %clearfix;
+}
+
+
+.resplist-label{
   overflow: hidden;
   white-space: nowrap;
   font-size: 11px;
   color: #888;
   display: table;
-  padding: 0 20px;
+  padding: 0 $row_hspace;
   height: 15px;
   line-height: 15px;
 }
 
-.resplist-label-hidden {
+.resplist-label-hidden{
   background-color: transparent;
 }
 
-.resplist-value {
+.resplist-value{
   overflow: hidden;
   white-space: nowrap;
   font-size: 14px;
-  padding: 0 20px;
+  padding: 0 $row_hspace;
   height: 38px;
   display: table-cell;
   vertical-align: middle;
 }
 
-.resplist-label + .resplist-value {
+.resplist-label + .resplist-value{
   height: 22px;
   line-height: 22px;
 }
 
-.resplist-item {
+.resplist-item{
   float: left;
   max-width: 100%;
-  margin: 8px 0;
+  margin: $row_vspace 0;
   padding: 0;
   overflow: hidden;
+  @extend %clearfix;
+
 }
 
-.resplist-row {
-  background-color: #fff;
+.resplist-row{
+  background-color: $resplist_background;
   border-top: 1px solid #dddddd;
+  @extend %clearfix;
   padding: 0;
 }
 
-.resplist-item-xs {
+.resplist-item-xs{
   width: 60px;
 }
 
-.resplist-item-sm {
+.resplist-item-sm{
   width: 120px;
 }
 
-.resplist-item-md {
+.resplist-item-md{
   width: 180px;
 }
 
-.resplist-item-lg {
+.resplist-item-lg{
   width: 240px;
 }
 
+
 @media (max-width: 768px) {
-  .resplist-heading {
-    padding: 8px 12px;
+  $row_hspace: 12px;
+  $row_vspace: 8px;
+  .resplist-heading{
+    padding:$row_vspace $row_hspace;
   }
 
-  .resplist-footer {
-    padding: 8px 12px;
+  .resplist-footer{
+    padding:$row_vspace $row_hspace;
   }
 
-  .resplist-item {
-    margin: 8px 0;
+  .resplist-item{
+    margin: $row_vspace 0;
   }
 
-  .resplist-label {
-    padding: 0 12px;
+  .resplist-label{
+    padding: 0 $row_hspace;
   }
 
-  .resplist-value {
-    padding: 0 12px;
+  .resplist-value{
+    padding: 0 $row_hspace;
   }
 }
