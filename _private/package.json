@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --compilers es6:espower-babel/guess js/tests/**/*.es6"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
     "babel-core": "^6.5.1",
     "babel-loader": "^6.2.2",
     "babel-preset-es2015": "^6.5.0",
+    "espower-babel": "^4.0.1",
     "gulp": "^3.9.1",
     "gulp-compass": "^2.1.0",
     "gulp-minify-css": "^1.2.4",

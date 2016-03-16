@@ -1,1 +1,2 @@
 import './GroupSelector';
+import './Delete';
