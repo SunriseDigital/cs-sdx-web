@@ -33,6 +33,32 @@ namespace Sdx.WebLib.Control.Scaffold
           groupSelector = scaffold.Group.BuildSelector(conn);
         }
 
+        var deleteQuery = Request.QueryString["delete"];
+        if (deleteQuery != null)
+        {
+          var pkeyValues = Sdx.Util.Json.Decode(Request.QueryString["delete"]);
+          if (pkeyValues != null)
+          {
+            conn.BeginTransaction();
+            try
+            {
+              scaffold.DeleteRecord(pkeyValues, conn);
+              conn.Commit();
+            }
+            catch (Exception)
+            {
+              conn.Rollback();
+              throw;
+            }
+
+            if (!Sdx.Context.Current.IsDebugMode)
+            {
+              Response.Redirect(scaffold.ListPageUrl.Build(new String[]{"delete"}));
+            }
+          }
+        }
+        
+
         this.recordSet = scaffold.FetchRecordSet(conn);
       }
       catch (Exception)
