@@ -22,6 +22,13 @@
           <%if(elem.IsSecret){ %>
             <p class="notice"><i class="fa fa-exclamation-triangle"></i> 現在の値は表示されません。空送信時は更新されませんのでご注意ください。</p>
           <%} %>
+          <%if (elem.HasError){ %>
+          <ul>
+            <% foreach(var error in elem.Errors){ %>
+            <li><%=error %></li>
+            <%} %>
+          </ul>
+          <%} %>
         </div>
       <%} %>
     <%} %>
