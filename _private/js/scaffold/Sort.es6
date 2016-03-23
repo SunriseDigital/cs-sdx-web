@@ -74,9 +74,11 @@ $(() => {
   var sorter = new Sorter(".list-row");
   sorter.changeButtonState();
   $('.btn.sort').on('click', function(e){
+    e.preventDefault();
     var $btn = $(this);
     var $listRow = $btn.closest('.list-row');
 
     sorter[$btn.attr('data-sort-type')]($listRow);
+    return false;
   });
 });

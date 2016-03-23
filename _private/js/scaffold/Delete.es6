@@ -4,7 +4,7 @@ $(() => {
     var item = $(e.target).closest('.list-row');
 
     if(confirm(deleteMessage)){
-      var pkeyValues = item.attr("data-pkeys");
+      var pkeyValues = item.find("input[type=hidden][name=pkeys]").val();
       var url = location.pathname;
       if(location.search){
         url += location.search + '&delete=' + pkeyValues;

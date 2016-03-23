@@ -57,9 +57,29 @@ namespace Sdx.WebLib.Control.Scaffold
             }
           }
         }
-        
 
         this.recordSet = scaffold.FetchRecordSet(conn);
+
+        var sortingSubmit = Request.Form["submit_sorting_order"];
+        if (sortingSubmit != null)
+        {
+          conn.BeginTransaction();
+          try
+          {
+            scaffold.Sort(recordSet, Request.Form.GetValues("pkeys"), conn);
+            conn.Commit();
+          }
+          catch (Exception)
+          {
+            conn.Rollback();
+            throw;
+          }
+
+          if (!Sdx.Context.Current.IsDebugMode)
+          {
+            Response.Redirect(scaffold.ListPageUrl.Build());
+          }
+        }
       }
       catch (Exception)
       {
