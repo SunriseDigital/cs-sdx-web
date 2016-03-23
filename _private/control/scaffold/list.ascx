@@ -12,7 +12,7 @@
   </div>
   <ul class="resplist resplist-striped">
   <% foreach(Sdx.Db.Record record in recordSet){ %>
-    <li class="resplist-row list-item" data-pkeys="<%= HttpUtility.HtmlEncode(Sdx.Util.Json.Encoder(record.GetPkeyValues()))%>">
+    <li class="resplist-row list-row" data-pkeys="<%= HttpUtility.HtmlEncode(Sdx.Util.Json.Encoder(record.GetPkeyValues()))%>">
       <div class="resplist-items">
         <% foreach(var item in scaffold.DisplayList){ %>
         <div class="resplist-item">
@@ -24,10 +24,14 @@
       <div class="resplist-footer clearfix">
         <div class="pull-right">
           <a class="btn btn-primary" href="<%=scaffold.EditPageUrl.Build(new Dictionary<string, string> { {"id", record.GetString("id")} })%>">編集</a>
+          <%if(!scaffold.SortingOrder.IsEmpty){ %>
           <div class="btn-group">
-            <button class="btn btn-default up-button"><i class="fa fa-chevron-up"></i></button>
-            <button class="btn btn-default down-button"><i class="fa fa-chevron-down"></i></button>
+            <button class="btn btn-default sort up" data-sort-type="top"><i class="fa fa-step-backward fa-rotate-90"></i></button>
+            <button class="btn btn-default sort up" data-sort-type="up"><i class="fa fa-chevron-up"></i></button>
+            <button class="btn btn-default sort down" data-sort-type="down"><i class="fa fa-chevron-down"></i></button>
+            <button class="btn btn-default sort down" data-sort-type="bottom"><i class="fa fa-step-backward fa-rotate-270"></i></button>
           </div>
+          <%} %>
           <button class="btn btn-danger delete"><i class="fa fa-times"></i></button>
         </div>
       </div>

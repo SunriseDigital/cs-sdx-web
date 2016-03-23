@@ -1,7 +1,7 @@
 $(() => {
   var deleteMessage = $('input[type=hidden][name=DeleteMessage]').val();
   $(".sdx-scaffold-list .btn.delete").on('click', (e, elem) => {
-    var item = $(e.target).closest('.list-item');
+    var item = $(e.target).closest('.list-row');
 
     if(confirm(deleteMessage)){
       var pkeyValues = item.attr("data-pkeys");
