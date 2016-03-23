@@ -36,13 +36,12 @@ namespace Sdx.WebLib.Control.Scaffold
         var deleteQuery = Request.QueryString["delete"];
         if (deleteQuery != null)
         {
-          var pkeyValues = Sdx.Util.Json.Decode(Request.QueryString["delete"]);
-          if (pkeyValues != null)
+          if (Request.QueryString["delete"] != null)
           {
             conn.BeginTransaction();
             try
             {
-              scaffold.DeleteRecord(pkeyValues, conn);
+              scaffold.DeleteRecord(Request.QueryString["delete"], conn);
               conn.Commit();
             }
             catch (Exception)
