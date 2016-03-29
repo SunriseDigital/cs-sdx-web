@@ -12,6 +12,7 @@ namespace Sdx.WebLib.Control.Scaffold
     protected dynamic recordSet;
     protected Sdx.Html.Select groupSelector;
     protected Sdx.Db.Connection conn;
+    protected Sdx.Html.PagerLink pagerLink;
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -58,6 +59,10 @@ namespace Sdx.WebLib.Control.Scaffold
         }
 
         this.recordSet = scaffold.FetchRecordSet(conn);
+        if(scaffold.Pager != null)
+        {
+          pagerLink = new Sdx.Html.PagerLink(scaffold.Pager, scaffold.ListPageUrl);
+        }
 
         var sortingSubmit = Request.Form["submit_sorting_order"];
         if (sortingSubmit != null)

@@ -47,6 +47,16 @@
     <div class="form-group text-right">
       <input class="btn btn-success" type="submit" name="submit_sorting_order" value="並び順を保存" />
     </div>
+    <%if(pagerLink != null){ %>
+    <div class="clearfix">
+      <div class="pull-left">
+        <%= pagerLink.GetPrev("前へ").Render(a => a.AddClass("btn", "btn-default")) %>
+      </div>
+      <div class="pull-right">
+        <%= pagerLink.GetNext("次へ").Render(a => a.AddClass("btn", "btn-default")) %>
+      </div>
+    </div>
+    <%} %>
   </form>
 </div>
 
