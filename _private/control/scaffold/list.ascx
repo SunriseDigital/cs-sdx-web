@@ -53,14 +53,14 @@
     <%} %>
     <%if(pagerLink != null){ %>
     <div class="row">
-      <div class="col-xs-4 text-left">
+      <div class="text-center">
+        <%= pagerLink.GetFisrt().AddText("<i class=\"fa fa-step-backward\"></i>", false).Render(a => a.AddClass("btn", "btn-default")) %>
         <%= pagerLink.GetPrev().AddText("<i class=\"fa fa-chevron-left\"></i>", false).Render(a => a.AddClass("btn", "btn-default")) %>
-      </div>
-      <div class="col-xs-4 text-center">
-        <%=pagerLink.Pager.Page %>/<%=pagerLink.Pager.LastPage %>
-      </div>
-      <div class="col-xs-4 text-right">
+        <span class="page-number">
+          <%=pagerLink.Pager.Page %>&nbsp;/&nbsp;<%=pagerLink.Pager.LastPage %>
+        </span>
         <%= pagerLink.GetNext().AddText("<i class=\"fa fa-chevron-right\"></i>", false).Render(a => a.AddClass("btn", "btn-default")) %>
+        <%= pagerLink.GetLast().AddText("<i class=\"fa fa-step-forward\"></i>", false).Render(a => a.AddClass("btn", "btn-default")) %>
       </div>
     </div>
     <%} %>
