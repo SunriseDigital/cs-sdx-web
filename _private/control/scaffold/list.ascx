@@ -12,9 +12,11 @@
     <div class="form-group">
       <a class="btn btn-primary" href="<%=scaffold.EditPageUrl.Build() %>">新規追加</a>
     </div>
-    <div class="form-group text-right">
-      <input class="btn btn-success" type="submit" name="submit_sorting_order" value="並び順を保存" />
-    </div>
+    <%if(!scaffold.SortingOrder.IsEmpty){ %>
+      <div class="form-group text-right">
+        <input class="btn btn-success" type="submit" name="submit_sorting_order" value="並び順を保存" />
+      </div>
+    <%} %>
     <ul class="resplist resplist-striped">
     <% foreach(Sdx.Db.Record record in recordSet){ %>
       <li class="resplist-row list-row">
@@ -44,16 +46,21 @@
       </li>
     <% } %>
     </ul>
-    <div class="form-group text-right">
-      <input class="btn btn-success" type="submit" name="submit_sorting_order" value="並び順を保存" />
-    </div>
-    <%if(pagerLink != null){ %>
-    <div class="clearfix">
-      <div class="pull-left">
-        <%= pagerLink.GetPrev("前へ").Render(a => a.AddClass("btn", "btn-default")) %>
+    <%if(!scaffold.SortingOrder.IsEmpty){ %>
+      <div class="form-group text-right">
+        <input class="btn btn-success" type="submit" name="submit_sorting_order" value="並び順を保存" />
       </div>
-      <div class="pull-right">
-        <%= pagerLink.GetNext("次へ").Render(a => a.AddClass("btn", "btn-default")) %>
+    <%} %>
+    <%if(pagerLink != null){ %>
+    <div class="row">
+      <div class="col-xs-4 text-left">
+        <%= pagerLink.GetPrev().AddText("<i class=\"fa fa-chevron-left\"></i>", false).Render(a => a.AddClass("btn", "btn-default")) %>
+      </div>
+      <div class="col-xs-4 text-center">
+        <%=pagerLink.Pager.Page %>/<%=pagerLink.Pager.LastPage %>
+      </div>
+      <div class="col-xs-4 text-right">
+        <%= pagerLink.GetNext().AddText("<i class=\"fa fa-chevron-right\"></i>", false).Render(a => a.AddClass("btn", "btn-default")) %>
       </div>
     </div>
     <%} %>

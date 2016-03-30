@@ -58,11 +58,15 @@ namespace Sdx.WebLib.Control.Scaffold
           }
         }
 
-        this.recordSet = scaffold.FetchRecordSet(conn);
-        if(scaffold.Pager != null)
+        Sdx.Pager pager = null;
+        if(scaffold.HasPerPage)
         {
-          pagerLink = new Sdx.Html.PagerLink(scaffold.Pager, scaffold.ListPageUrl);
+          pager = new Sdx.Pager();
+          pager.PerPage = scaffold.PerPage;
+          pagerLink = new Sdx.Html.PagerLink(pager, scaffold.ListPageUrl);
         }
+
+        this.recordSet = scaffold.FetchRecordSet(conn, pager);
 
         var sortingSubmit = Request.Form["submit_sorting_order"];
         if (sortingSubmit != null)
