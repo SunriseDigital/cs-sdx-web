@@ -16,6 +16,11 @@ namespace Sdx.WebLib.Control.Scaffold
 
     protected void Page_Load(object sender, EventArgs e)
     {
+      if (TitleTag == null)
+      {
+        TitleTag = "h1";
+      }
+
       scaffold = Sdx.Scaffold.Manager.CurrentInstance(this.Name);
       conn = scaffold.Db.CreateConnection();
       try
@@ -103,5 +108,7 @@ namespace Sdx.WebLib.Control.Scaffold
     }
 
     public string Name { get; set; }
+
+    public string TitleTag { get; set; }
   }
 }

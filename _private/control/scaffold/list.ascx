@@ -6,7 +6,7 @@
     <%=groupSelector.Tag.Render(Sdx.Html.Attr.Create().AddClass("form-control group-selector")) %>
   </div>
   <%} %>
-  <h1><%if(scaffold.Group != null && scaffold.Group.TargetValue != null){ %><%=scaffold.Group.Name %> <%} %><%= scaffold.Title %>リスト</h1>
+  <<%=TitleTag %>><%if(scaffold.Group != null && scaffold.Group.TargetValue != null){ %><%=scaffold.Group.Name %> <%} %><%= scaffold.Title %>リスト</<%=TitleTag %>>
   
   <form action="<%=Request.Url.PathAndQuery %>" method="post">
     <div class="form-group">

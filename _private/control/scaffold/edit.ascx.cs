@@ -11,9 +11,15 @@ namespace Sdx.WebLib.Control.Scaffold
   {
     protected Sdx.Scaffold.Manager scaffold;
     protected Sdx.Html.Form form;
+    protected Sdx.Db.Record record;
 
     protected void Page_Load(object sender, EventArgs e)
     {
+      if (TitleTag == null)
+      {
+        TitleTag = "h1";
+      }
+
       this.scaffold = Sdx.Scaffold.Manager.CurrentInstance(this.Name);
       this.scaffold.EditPageUrl = new Web.Url(Request.Url.PathAndQuery);
       if (this.scaffold.ListPageUrl == null)
@@ -29,7 +35,7 @@ namespace Sdx.WebLib.Control.Scaffold
       using(var conn = scaffold.Db.CreateConnection())
       {
         conn.Open();
-        var record = this.scaffold.LoadRecord(Request.Params, conn);
+        record = this.scaffold.LoadRecord(Request.Params, conn);
         this.form = this.scaffold.BuildForm(record, conn);
 
         if (Request.Form.Count > 0)
@@ -55,12 +61,12 @@ namespace Sdx.WebLib.Control.Scaffold
             }
           }
         }
-
-        Sdx.Context.Current.Debug.Log(record);
       }
 
     }
 
     public string Name { get; set; }
+
+    public string TitleTag { get; set; }
   }
 }

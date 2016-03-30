@@ -1,6 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="edit.ascx.cs" Inherits="Sdx.WebLib.Control.Scaffold.Edit" %>
 
-<div><%if(scaffold.Group != null && scaffold.Group.TargetValue != null){ %><%=scaffold.Group.Name %> <%} %><%=scaffold.Title %></div>
+<<%=TitleTag %>>
+  <%if(scaffold.Group != null && scaffold.Group.TargetValue != null){ %><%=scaffold.Group.Name %> <%} %><%=scaffold.Title %><%=record.IsNew ? "登録" : "編集" %>
+</<%=TitleTag %>>
 
 <div>
   <form action="<%=Request.Url.PathAndQuery %>" method="post">
