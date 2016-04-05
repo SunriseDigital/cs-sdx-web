@@ -6,15 +6,15 @@
     <%=groupSelector.Tag.Render(Sdx.Html.Attr.Create().AddClass("form-control group-selector")) %>
   </div>
   <%} %>
-  <<%=TitleTag %>><%if(scaffold.Group != null && scaffold.Group.TargetValue != null){ %><%=scaffold.Group.Name %> <%} %><%= scaffold.Title %>リスト</<%=TitleTag %>>
+  <<%=TitleTag %>><%if(scaffold.Group != null && scaffold.Group.TargetValue != null){ %><%=scaffold.Group.Name %> <%} %><%= scaffold.Title %><%=Sdx.I18n.GetString("リスト") %></<%=TitleTag %>>
   
   <form action="<%=Request.Url.PathAndQuery %>" method="post">
     <div class="form-group">
-      <a class="btn btn-primary" href="<%=scaffold.EditPageUrl.Build() %>">新規追加</a>
+      <a class="btn btn-primary" href="<%=scaffold.EditPageUrl.Build() %>"><%=Sdx.I18n.GetString("新規追加") %></a>
     </div>
     <%if(!scaffold.SortingOrder.IsEmpty){ %>
       <div class="form-group text-right">
-        <input class="btn btn-success" type="submit" name="submit_sorting_order" value="並び順を保存" />
+        <input class="btn btn-success" type="submit" name="submit_sorting_order" value=<%="\"" + Sdx.I18n.GetString("並び順を保存") + "\"" %> />
       </div>
     <%} %>
     <ul class="resplist resplist-striped">
@@ -48,7 +48,7 @@
     </ul>
     <%if(!scaffold.SortingOrder.IsEmpty){ %>
       <div class="form-group text-right">
-        <input class="btn btn-success" type="submit" name="submit_sorting_order" value="並び順を保存" />
+        <input class="btn btn-success" type="submit" name="submit_sorting_order" value=<%="\"" + Sdx.I18n.GetString("並び順を保存") + "\"" %> />
       </div>
     <%} %>
     <%if(pagerLink != null){ %>
@@ -67,4 +67,4 @@
   </form>
 </div>
 
-<input type="hidden" name="DeleteMessage" value="削除します。よろしいですか？">
+<input type="hidden" name="DeleteMessage" value=<%="\"" + Sdx.I18n.GetString("削除します。よろしいですか？") + "\"" %>>
