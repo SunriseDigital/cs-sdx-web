@@ -30,7 +30,7 @@
         </div>
         <div class="resplist-footer clearfix">
           <div class="pull-right">
-            <a class="btn btn-primary" href="<%=scaffold.EditPageUrl.Build(new Dictionary<string, string> { {"id", record.GetString("id")} })%>">編集</a>
+            <a class="btn btn-primary" href="<%=scaffold.EditPageUrl.Build(new Dictionary<string, string> { {"id", record.GetString("id")} })%>"><%=Sdx.I18n.GetString("編集") %></a>
             <%if(!scaffold.SortingOrder.IsEmpty){ %>
             <div class="btn-group">
               <button class="btn btn-default sort up" data-sort-type="top"><i class="fa fa-step-backward fa-rotate-90"></i></button>
