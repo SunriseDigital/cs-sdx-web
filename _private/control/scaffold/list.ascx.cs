@@ -103,7 +103,11 @@ namespace Sdx.WebLib.Control.Scaffold
 
     protected override void OnUnload(EventArgs e)
     {
-      this.conn.Dispose();
+      if (this.conn != null)
+      {
+        this.conn.Dispose();
+      }
+      
       base.OnUnload(e);
     }
 
