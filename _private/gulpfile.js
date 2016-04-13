@@ -34,8 +34,7 @@ gulp.task('watch-sass', function() {
   gulp.watch(['sass/*.scss', 'sass/**/*.scss'], ['build-sass']);
 });
 
-gulp.task('build-scaffold', function() {
-  var config = require('./js/scaffold/webpack.config.js');
+var buildWebpack = function(config){
   webpack(config, function(err, stats) {
     //notifier
     if (stats.compilation.errors.length) {
@@ -56,9 +55,16 @@ gulp.task('build-scaffold', function() {
       }))
       .pipe(gulp.dest('../js'))
   });
+}
+
+gulp.task('build-scaffold', function() {
+  var config = require('./js/scaffold/webpack.config.js');
+  buildWebpack(config);
 });
-
-
-
-
 gulp.task('scaffold', ['build-scaffold', 'watch-sass']);
+
+gulp.task('build-require', function() {
+  var config = require('./js/require/webpack.config.js');
+  buildWebpack(config);
+});
+gulp.task('require', ['build-require', 'watch-sass']);
