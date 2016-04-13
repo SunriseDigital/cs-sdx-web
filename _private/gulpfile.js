@@ -9,6 +9,33 @@ var rename = require('gulp-rename');
 var notifier = require('node-notifier');
 var uglify = require('gulp-uglify');
 
+////////////////////////////////////////
+// utile
+var buildWebpack = function(config){
+  webpack(config, function(err, stats) {
+    //notifier
+    if (stats.compilation.errors.length) {
+      notifier.notify({
+        title: 'Webpack',
+        message: stats.compilation.errors[0].message
+      });
+    }
+
+    //console log
+    gutil.log("[webpack]", stats.toString({}));
+
+    //uglify
+    gulp.src(config.output.path + '/' + config.output.filename)
+      .pipe(rename({ suffix: '.min' }))
+      .pipe(uglify({
+        preserveComments: 'license'
+      }))
+      .pipe(gulp.dest('../js'))
+  });
+}
+
+////////////////////////////////////////
+// sass
 gulp.task('build-sass', function() {
   return gulp.src(['sass/*.scss', 'sass/**/*.scss'])
     .pipe(compass({
@@ -34,30 +61,19 @@ gulp.task('watch-sass', function() {
   gulp.watch(['sass/*.scss', 'sass/**/*.scss'], ['build-sass']);
 });
 
+gulp.task('sass', ['build-sass', 'watch-sass']);
+
+////////////////////////////////////////
+// scaffold
 gulp.task('build-scaffold', function() {
   var config = require('./js/scaffold/webpack.config.js');
-  webpack(config, function(err, stats) {
-    //notifier
-    if (stats.compilation.errors.length) {
-      notifier.notify({
-        title: 'Webpack',
-        message: stats.compilation.errors[0].message
-      });
-    }
-
-    //console log
-    gutil.log("[webpack]", stats.toString({}));
-
-    //uglify
-    gulp.src(config.output.path + '/' + config.output.filename)
-      .pipe(rename({ suffix: '.min' }))
-      .pipe(uglify({
-        preserveComments: 'license'
-      }))
-      .pipe(gulp.dest('../js'))
-  });
+  buildWebpack(config);
 });
+gulp.task('scaffold', ['build-scaffold']);
 
+
+////////////////////////////////////////
+// static
 // js/static内のファイルをコピーしてなおかつuglifyする。
 var staticSources = [ 'js/static/*.js', 'js/static/**/*.js' ];
 gulp.task('copy-static', function(){
@@ -69,7 +85,7 @@ gulp.task('copy-static', function(){
     .pipe(rename({ suffix: '.min' }))
     .pipe(uglify({
       preserveComments: 'license'
-    }))
+    }).on('error', gutil.log))
     .pipe(gulp.dest('../js/static'))
 });
 
@@ -77,5 +93,13 @@ gulp.task('watch-static', function(){
   gulp.watch(staticSources, ['copy-static']);
 })
 
+gulp.task('static', ['copy-static', 'watch-static']);
 
-gulp.task('scaffold', ['build-scaffold', 'watch-sass', 'watch-static']);
+////////////////////////////////////////
+// require
+gulp.task('build-require', function() {
+  var config = require('./js/require/webpack.config.js');
+  buildWebpack(config);
+});
+gulp.task('require', ['build-require', 'watch-sass']);
+
