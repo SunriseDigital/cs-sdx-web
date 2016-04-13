@@ -2,12 +2,12 @@ if(!global.Sdx){
   global.Sdx = {};
 }
 
-function loadScript(script){
+function loadScript(url){
   return new Promise((resolve) => {
     var scriptTag = document.createElement('script');
     scriptTag.async = 1;
     scriptTag.defer = 1;
-    scriptTag.src = script;
+    scriptTag.src = url;
 
     scriptTag.onload = () => {
       resolve();
