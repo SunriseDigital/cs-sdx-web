@@ -58,7 +58,24 @@ gulp.task('build-scaffold', function() {
   });
 });
 
+// js/static内のファイルをコピーしてなおかつuglifyする。
+var staticSources = [ 'js/static/*.js', 'js/static/**/*.js' ];
+gulp.task('copy-static', function(){
+  
+  gulp.src(staticSources, { base: 'js/static' })
+    .pipe( gulp.dest( '../js/static' ));
+
+  gulp.src(staticSources, { base: 'js/static' })
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(uglify({
+      preserveComments: 'license'
+    }))
+    .pipe(gulp.dest('../js/static'))
+});
+
+gulp.task('watch-static', function(){
+  gulp.watch(staticSources, ['copy-static']);
+})
 
 
-
-gulp.task('scaffold', ['build-scaffold', 'watch-sass']);
+gulp.task('scaffold', ['build-scaffold', 'watch-sass', 'watch-static']);
