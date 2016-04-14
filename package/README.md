@@ -11,3 +11,11 @@
 * [fontawesome](fontawesome) - [公式](https://fortawesome.github.io/Font-Awesome/)
 * [momentjs](momentjs) - [公式](http://momentjs.com/)
 * [Bootstrap 3 Datepicker](bootstrap-datetimepicker) - [公式](http://eonasdan.github.io/bootstrap-datetimepicker/)
+
+## 配置時の注意
+
+`/ライブラリ名/バージョン/ファイル群`という階層で配置します。`ファイル群`はディレクトリで仕分けしてあってもOKです。
+
+通常ファイルと圧縮ファイルは同じ階層において拡張子の直前に`min`を付与してください。
+
+例：`foobar.js` => `foobar.min.js`

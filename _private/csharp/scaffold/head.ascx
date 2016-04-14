@@ -5,17 +5,17 @@
 <link rel="stylesheet" href="<%=Sdx.Util.Path.AutoMin("/lib/css/scaffold.min.css") %>">
 
 <script type="text/uri-list" data-role="chain-loader-list">
-  <%=Sdx.Util.Path.AutoMin("/lib/package/jquery/jquery-2.2.3.min.js") %>
+  <%=Sdx.Util.Path.AutoMin("/lib/package/jquery/2.2.3/jquery.min.js") %>
   <%=Sdx.Util.Path.AutoMin("/lib/package/momentjs/2.12.0/moment.min.js") %>
 </script>
 
 <script type="text/uri-list" data-role="chain-loader-list">
-  <%=Sdx.Util.Path.AutoMin("/lib/js/package/bootstrap/dist/js/bootstrap.min.js") %>
-  /lib/js/bower/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js
+  <%=Sdx.Util.Path.AutoMin("/lib/package/bootstrap/3.3.6/js/bootstrap.min.js") %>
+  <%=Sdx.Util.Path.AutoMin("/lib/package/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js") %>
 </script>
 
 <script type="text/uri-list" data-role="chain-loader-list">
   <%=Sdx.Util.Path.AutoMin("/lib/js/scaffold.min.js") %>
 </script>
 
-<script type="text/javascript" src="<%=Sdx.Util.Path.AutoMin("/lib/js/static/chain-loader.min.js") %>" async defer></script>
+<script type="text/javascript" src="<%=Sdx.Util.Path.AutoMin("/lib/js/static/chain-loader.min.js") %>" async></script>
