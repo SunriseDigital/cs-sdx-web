@@ -10,7 +10,6 @@
 * [Bootstrap](bootstrap) - [公式](http://getbootstrap.com/)
 * [fontawesome](fontawesome) - [公式](https://fortawesome.github.io/Font-Awesome/)
 * [momentjs](momentjs) - [公式](http://momentjs.com/)
-* [Bootstrap 3 Datepicker](bootstrap-datetimepicker) - [公式](http://eonasdan.github.io/bootstrap-datetimepicker/)
 
 ## 配置時の注意
 
