@@ -6,12 +6,25 @@
 
 <div>
   <form action="<%=Request.Url.PathAndQuery %>" method="post">
+    <%if (saveException != null){ %>
+    <div>
+      <div class="alert alert-danger" role="alert">
+        <p><i class="fa fa-exclamation-circle" aria-hidden="true"></i>&nbsp;<%=Sdx.I18n.GetString("保存時にシステムエラーが発生しました。") %></p>
+        <p class="clearfix">
+          <i class="fa fa-quote-left " aria-hidden="true"></i>
+          <%=saveException.Message %>
+          <i class="fa fa-quote-right " aria-hidden="true"></i>
+        </p>
+        <p class="text-right"><a href="<%=scaffold.EditPageUrl.Build() %>"><i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;<%=Sdx.I18n.GetString("再読み込み") %></a></p>
+      </div>
+    </div>
+    <%} %>
     <%foreach(var elem in form){ %>
       <%if (elem is Sdx.Html.InputHidden){ %>
-        <%=elem.Tag.Render(Sdx.Html.Attr.Create().AddClass("form-control")) %>
+        <%=elem.Tag.Render() %>
       <% }else{ %>
-        <div class="form-group">
-          <label><%=elem.Label %></label>
+        <div class="form-group<%if (elem.HasError){%> has-error<%}else if(elem.IsSecret){%> has-warning<%} %>">
+          <label><%=elem.Label %><%if(!elem.IsAllowEmpty){%>&nbsp;<span class="label label-warning"><%=Sdx.I18n.GetString("必須") %></span><%} %></label>
           <%if(elem is Sdx.Html.CheckableGroup){ %>
             <%elem.Tag.ForEach(child =>{%>
             <div class="<%= child.Children.First().Attr["type"]%>">
@@ -22,14 +35,10 @@
             <%=elem.Tag.Render(Sdx.Html.Attr.Create().AddClass("form-control")) %>
           <%} %>
           <%if(elem.IsSecret){ %>
-            <p class="notice"><i class="fa fa-exclamation-triangle"></i> 現在の値は表示されません。空送信時は更新されませんのでご注意ください。</p>
+            <p class="notice"><i class="fa fa-exclamation-triangle"></i> <%=Sdx.I18n.GetString("現在の値は表示されません。空送信時は更新されませんのでご注意ください。") %></p>
           <%} %>
           <%if (elem.HasError){ %>
-          <ul>
-            <% foreach(var error in elem.Errors){ %>
-            <li><%=error %></li>
-            <%} %>
-          </ul>
+            <%=elem.Errors.Html().Render() %>
           <%} %>
         </div>
       <%} %>

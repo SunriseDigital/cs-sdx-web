@@ -12,8 +12,9 @@ namespace Sdx.WebLib.Control.Scaffold
     protected Sdx.Scaffold.Manager scaffold;
     protected Sdx.Html.Form form;
     protected Sdx.Db.Record record;
+    protected Exception saveException;
 
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load(object sender, EventArgs ev)
     {
       if (TitleTag == null)
       {
@@ -49,13 +50,13 @@ namespace Sdx.WebLib.Control.Scaffold
               scaffold.Save(record, form.ToNameValueCollection(), conn);
               conn.Commit();
             }
-            catch (Exception)
+            catch (Exception e)
             {
               conn.Rollback();
-              throw;
+              this.saveException = e;
             }
 
-            if (!Sdx.Context.Current.IsDebugMode)
+            if (!Sdx.Context.Current.IsDebugMode && this.saveException == null)
             {
               Response.Redirect(scaffold.ListPageUrl.Build());
             }

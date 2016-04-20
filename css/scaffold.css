@@ -161,3 +161,14 @@ ul.resplist {
 .page-number .current {
   color: #333;
 }
+
+.notice {
+  color: #8a6d3b;
+}
+
+.sdx-has-error {
+  list-style: none;
+  color: #a94442;
+  font-weight: bold;
+  padding: 0;
+}
