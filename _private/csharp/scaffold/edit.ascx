@@ -1,10 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="edit.ascx.cs" Inherits="Sdx.WebLib.Control.Scaffold.Edit" %>
-
-<<%=TitleTag %>>
-  <%if(scaffold.Group != null && scaffold.Group.TargetValue != null){ %><%=scaffold.Group.Name %> <%} %><%=scaffold.Title %><%=record.IsNew ? "登録" : "編集" %>
-</<%=TitleTag %>>
-
 <div>
+  <<%=scaffold.Heading(1) %>>
+    <%if(scaffold.Group != null && scaffold.Group.TargetValue != null){ %><%=scaffold.Group.Name %> <%} %><%=scaffold.Title %><%=record.IsNew ? "登録" : "編集" %>
+  </<%=scaffold.Heading(1) %>>
   <form action="<%=Request.Url.PathAndQuery %>" method="post">
     <%if (saveException != null){ %>
     <div>
@@ -26,7 +24,9 @@
         <%=elem.Tag.Render() %>
       <% }else{ %>
         <div class="form-group<%if (elem.HasError){%> has-error<%}else if(elem.IsSecret){%> has-warning<%} %>">
-          <label><%=elem.Label %><%if(!elem.IsAllowEmpty){%>&nbsp;<span class="label label-warning"><%=Sdx.I18n.GetString("必須") %></span><%} %></label>
+          <<%=scaffold.Heading(2) %>>
+            <%=elem.Label %><%if(!elem.IsAllowEmpty){%>&nbsp;<span class="label label-warning"><%=Sdx.I18n.GetString("必須") %></span><%} %>
+          </<%=scaffold.Heading(2) %>>
           <%if(elem is Sdx.Html.CheckableGroup){ %>
             <%elem.Tag.ForEach(child =>{%>
             <div class="<%= child.Children.First().Attr["type"]%>">

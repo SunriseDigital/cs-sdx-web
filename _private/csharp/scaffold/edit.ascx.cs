@@ -16,12 +16,12 @@ namespace Sdx.WebLib.Control.Scaffold
 
     protected void Page_Load(object sender, EventArgs ev)
     {
-      if (TitleTag == null)
+      this.scaffold = Sdx.Scaffold.Manager.CurrentInstance(this.Name);
+      if (OutlineRank != null)
       {
-        TitleTag = "h1";
+        scaffold.OutlineRank = (int)OutlineRank;
       }
 
-      this.scaffold = Sdx.Scaffold.Manager.CurrentInstance(this.Name);
       this.scaffold.EditPageUrl = new Web.Url(Request.Url.PathAndQuery);
       if (this.scaffold.ListPageUrl == null)
       {
@@ -68,6 +68,6 @@ namespace Sdx.WebLib.Control.Scaffold
 
     public string Name { get; set; }
 
-    public string TitleTag { get; set; }
+    public int? OutlineRank { get; set; }
   }
 }

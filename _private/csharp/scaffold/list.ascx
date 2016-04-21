@@ -1,12 +1,15 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="list.ascx.cs" Inherits="Sdx.WebLib.Control.Scaffold.List" %>
 
 <div class="sdx-scaffold-list">
+  <<%=scaffold.Heading(1) %>>
+    <%if(scaffold.Group != null && scaffold.Group.TargetValue != null){ %><%=scaffold.Group.Name %> <%} %><%= scaffold.Title %><%=Sdx.I18n.GetString("リスト") %>
+  </<%=scaffold.Heading(1) %>>
+
   <%if (groupSelector != null){ %>
   <div class="form-group">
     <%=groupSelector.Tag.Render(Sdx.Html.Attr.Create().AddClass("form-control group-selector")) %>
   </div>
   <%} %>
-  <<%=TitleTag %>><%if(scaffold.Group != null && scaffold.Group.TargetValue != null){ %><%=scaffold.Group.Name %> <%} %><%= scaffold.Title %><%=Sdx.I18n.GetString("リスト") %></<%=TitleTag %>>
   
   <form action="<%=Request.Url.PathAndQuery %>" method="post">
     <div class="form-group">
