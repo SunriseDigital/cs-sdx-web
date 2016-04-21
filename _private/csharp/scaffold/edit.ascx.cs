@@ -41,7 +41,7 @@ namespace Sdx.WebLib.Control.Scaffold
 
         if (Request.Form.Count > 0)
         {
-          form.Bind(Request.Form);
+          scaffold.BindToForm(form, Request.Form);
           if (form.ExecValidators())
           {
             conn.BeginTransaction();

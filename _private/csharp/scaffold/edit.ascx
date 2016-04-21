@@ -19,7 +19,9 @@
       </div>
     </div>
     <%} %>
-    <%foreach(var elem in form){ %>
+    <%foreach(var config in scaffold.FormList){
+        var elem = form[config["column"].ToString()];
+    %>
       <%if (elem is Sdx.Html.InputHidden){ %>
         <%=elem.Tag.Render() %>
       <% }else{ %>
@@ -36,6 +38,11 @@
           <%} %>
           <%if(elem.IsSecret){ %>
             <p class="notice"><i class="fa fa-exclamation-triangle"></i> <%=Sdx.I18n.GetString("現在の値は表示されません。空送信時は更新されませんのでご注意ください。") %></p>
+          <%} %>
+          <%if(config.ContainsKey("autoCurrentCheckbox")){
+              var checkbox = form[config["autoCurrentCheckbox"].ToString()];
+          %>
+            <%=checkbox.Tag.Render("checkbox", "auto-current") %>
           <%} %>
           <%if (elem.HasError){ %>
             <%=elem.Errors.Html().Render() %>

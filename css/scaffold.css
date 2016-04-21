@@ -172,3 +172,8 @@ ul.resplist {
   font-weight: bold;
   padding: 0;
 }
+
+.auto-current {
+  margin-top: 0;
+  margin-bottom: 0;
+}
