@@ -25,8 +25,8 @@
       <li class="resplist-row list-row">
         <div class="resplist-items">
           <% foreach(var item in scaffold.DisplayList){ %>
-          <div class="resplist-item">
-            <div class="resplist-label"<%if (item.ContainsKey("style")){ %> style="<%= item["style"] %>"<%} %>><%= item["label"] %></div>
+          <div class="resplist-item<%if (item.ContainsKey("class")){ %><%= " "+item["class"] %><%} %>"<%if (item.ContainsKey("style")){ %> style="<%= item["style"] %>"<%} %>>
+            <div class="resplist-label"><%= item["label"] %></div>
             <div class="resplist-value"><%= item.Display(record, conn) %></div>
           </div>
           <% } %>
