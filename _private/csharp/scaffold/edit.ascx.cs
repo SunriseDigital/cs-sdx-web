@@ -12,15 +12,16 @@ namespace Sdx.WebLib.Control.Scaffold
     protected Sdx.Scaffold.Manager scaffold;
     protected Sdx.Html.Form form;
     protected Sdx.Db.Record record;
+    protected Exception saveException;
 
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load(object sender, EventArgs ev)
     {
-      if (TitleTag == null)
+      this.scaffold = Sdx.Scaffold.Manager.CurrentInstance(this.Name);
+      if (OutlineRank != null)
       {
-        TitleTag = "h1";
+        scaffold.OutlineRank = (int)OutlineRank;
       }
 
-      this.scaffold = Sdx.Scaffold.Manager.CurrentInstance(this.Name);
       this.scaffold.EditPageUrl = new Web.Url(Request.Url.PathAndQuery);
       if (this.scaffold.ListPageUrl == null)
       {
@@ -40,7 +41,7 @@ namespace Sdx.WebLib.Control.Scaffold
 
         if (Request.Form.Count > 0)
         {
-          form.Bind(Request.Form);
+          scaffold.BindToForm(form, Request.Form);
           if (form.ExecValidators())
           {
             conn.BeginTransaction();
@@ -49,13 +50,13 @@ namespace Sdx.WebLib.Control.Scaffold
               scaffold.Save(record, form.ToNameValueCollection(), conn);
               conn.Commit();
             }
-            catch (Exception)
+            catch (Exception e)
             {
               conn.Rollback();
-              throw;
+              this.saveException = e;
             }
 
-            if (!Sdx.Context.Current.IsDebugMode)
+            if (!Sdx.Context.Current.IsDebugMode && this.saveException == null)
             {
               Response.Redirect(scaffold.ListPageUrl.Build());
             }
@@ -67,6 +68,6 @@ namespace Sdx.WebLib.Control.Scaffold
 
     public string Name { get; set; }
 
-    public string TitleTag { get; set; }
+    public int? OutlineRank { get; set; }
   }
 }

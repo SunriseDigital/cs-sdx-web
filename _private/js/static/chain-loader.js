@@ -14,7 +14,7 @@ typeof d.then?d.then(b,c):b(d)})};e.resolve=function(a){return a&&"object"===typ
 /*!
  * Chain loader
  * @license   Licensed under MIT license
- *            
+ *
  */
 (function(){
   'use strict';
@@ -23,7 +23,6 @@ typeof d.then?d.then(b,c):b(d)})};e.resolve=function(a){return a&&"object"===typ
     return new Promise(function(resolve){
       var scriptTag = document.createElement('script');
       scriptTag.async = 1;
-      scriptTag.defer = 1;
       scriptTag.src = url;
 
       scriptTag.onload = function(){
@@ -38,7 +37,7 @@ typeof d.then?d.then(b,c):b(d)})};e.resolve=function(a){return a&&"object"===typ
       head.insertBefore(scriptTag, head.firstChild);
     });
   }
-  
+
   var scripts = document.querySelectorAll('script[data-role="chain-loader-list"]');
   var promise = Promise.resolve();
   for (var i = 0; i < scripts.length; i++) {

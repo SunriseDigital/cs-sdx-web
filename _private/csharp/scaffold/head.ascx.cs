@@ -10,7 +10,12 @@ namespace Sdx.WebLib.Control.Scaffold
   {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+      if(BasePath == null)
+      {
+        BasePath = "/sdx";
+      }
     }
+
+    public string BasePath { get; set; }
   }
 }
