@@ -33,6 +33,8 @@
               <%=child.Render() %>
             </div>
             <%}); %>
+          <%} else if(elem is Sdx.Html.ImageUploader){ %>
+            <%=elem.Tag.ChildrenCall(children => children.First(tag => tag.Attr.HasClass("btn")).Attr.AddClass("btn-default")).Render() %>
           <%} else { %>
             <%=elem.Tag.Render(Sdx.Html.Attr.Create().AddClass("form-control")) %>
           <%} %>
