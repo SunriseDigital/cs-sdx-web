@@ -10,7 +10,8 @@ $(() => {
       dataType: 'json',
       singleFileUploads: false,
       sequentialUploads: true,
-      limitMultiFileUploadSize: 4096 * 1024
+      limitMultiFileUploadSize: 4096 * 1024,
+      formData: {name: $elem.attr("name")}
     }).bind("fileuploadsubmit", function (e, data) {
       //多すぎる分を取り除く
       images.removeExtraFile(data.files);
@@ -21,6 +22,7 @@ $(() => {
       }
     }).bind("fileuploaddone", function (e, data) {
       $.each(data.result.files, function (index, file) {
+        console.log(file);
         const image = new Image(file.name);
         images.addImage(image);
       });

@@ -152,6 +152,17 @@ ul.resplist {
     padding: 0 12px;
   }
 }
+.fileinput-button {
+  margin-bottom: 1em;
+}
+
+.images .image {
+  margin-right: 1em;
+}
+.images .image .header {
+  margin-bottom: 5px;
+}
+
 .page-number {
   font-weight: bold;
   color: #888;

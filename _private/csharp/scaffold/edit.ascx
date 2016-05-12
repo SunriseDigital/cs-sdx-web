@@ -18,7 +18,7 @@
     </div>
     <%} %>
     <%foreach(var config in scaffold.FormList){
-        var elem = form[config["column"].ToString()];
+        var elem = form[config.Name];
     %>
       <%if (elem is Sdx.Html.InputHidden){ %>
         <%=elem.Tag.Render() %>

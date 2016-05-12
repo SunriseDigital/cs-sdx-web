@@ -5,6 +5,8 @@ export default class ImageList
     this.currentCount = this.$wrapper.find('.image').length;
     this.maxCount = $inputElem.attr('data-max-count');
     this.thumbWidth = $inputElem.attr('data-thumb-width');
+    this.deleteLabel = $inputElem.attr('data-delete-label');
+    this.submitName = $inputElem.attr('data-submit-name')
   }
 
   removeExtraFile(files){
@@ -18,7 +20,7 @@ export default class ImageList
   }
 
   addImage(image){
-    const $img = image.createElement(this.thumbWidth);
-    $('<li />').addClass("image").append($img).appendTo(this.$wrapper);
+    const $li = image.createElement(this.thumbWidth, this.deleteLabel, this.submitName);
+    $li.appendTo(this.$wrapper);
   }
 }
