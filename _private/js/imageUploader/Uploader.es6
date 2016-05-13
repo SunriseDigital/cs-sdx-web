@@ -8,7 +8,6 @@ export default class Uploader
     this.$progressBar = $wrapper.find(".progress .progress-bar")
     this.imageList = new ImageList(this.$wrapper);
     this.maxCountMessage = this.$wrapper.attr('data-max-count-message');
-    console.log(this.maxCountMessage);
   }
 
   getImageList(){

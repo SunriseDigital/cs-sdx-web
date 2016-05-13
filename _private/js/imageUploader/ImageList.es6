@@ -26,8 +26,12 @@ export default class ImageList
     this.currentCount += count;
   }
 
+  removeCount(){
+    --this.currentCount;
+  }
+
   addImage(image){
-    const $li = image.createElement(this.thumbWidth, this.deleteLabel, this.submitName);
+    const $li = image.createElement(this);
     $li.appendTo(this.$wrapper);
   }
 }

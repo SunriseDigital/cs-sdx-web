@@ -4,20 +4,28 @@ export default class Image
     this.path = path;
   }
 
-  createElement(thumbWidth, deleteLabel, submitName){
+  createElement(imageList){
     const $img = $('<img />').attr("src", this.path);
-    if(thumbWidth){
-      $img.css("width", thumbWidth+"px");
+    if(imageList.thumbWidth){
+      $img.css("width", imageList.thumbWidth+"px");
     }
 
     const $li = $(`
 <li class="image thumbnail pull-left">
   <div class="header clearfix">
-    <button class="btn btn-danger btn-xs pull-right">${deleteLabel}</button>
+    <button class="delete btn btn-danger btn-xs pull-right">${imageList.deleteLabel}</button>
   </div>
-  <input type="hidden" value="${this.path}" name="${submitName}">
+  <input type="hidden" value="${this.path}" name="${imageList.submitName}">
 </li>
     `).append($img);
+
+    $li.find('.delete').on('click', e => {
+      e.preventDefault();
+      const $li = $(e.currentTarget).closest('.image');
+      $li.remove();
+      imageList.removeCount();
+      return false;
+    });
 
     return $li;
   }
