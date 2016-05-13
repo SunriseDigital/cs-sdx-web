@@ -1,22 +1,29 @@
 export default class ImageList
 {
-  constructor($inputElem){
-    this.$wrapper = $inputElem.closest(".sdx-image-uploader").find(".images");
-    this.currentCount = this.$wrapper.find('.image').length;
-    this.maxCount = $inputElem.attr('data-max-count');
-    this.thumbWidth = $inputElem.attr('data-thumb-width');
-    this.deleteLabel = $inputElem.attr('data-delete-label');
-    this.submitName = $inputElem.attr('data-submit-name')
+  constructor($globalWrapper){
+    this.currentCount = 0;
+    this.$wrapper = $globalWrapper.find(".images");
+    this.maxCount = $globalWrapper.attr('data-max-count');
+    this.thumbWidth = $globalWrapper.attr('data-thumb-width');
+    this.deleteLabel = $globalWrapper.attr('data-delete-label');
+    this.submitName = $globalWrapper.attr('data-submit-name')
   }
 
   removeExtraFile(files){
+    var removed = [];
     while(files.length > this.maxCount - this.currentCount){
-      files.pop();
+      removed.push(files.pop());
     }
+
+    return removed;
   }
 
-  reserveCount(files){
-    this.currentCount += files.length;
+  /**
+   * 画像アップロード枚数を予約する。アップロードする前に制限したいので事前に予約できるようになっています。
+   * @param  {[type]} count =             1 [description]
+   */
+  reserveCount(count = 1){
+    this.currentCount += count;
   }
 
   addImage(image){
