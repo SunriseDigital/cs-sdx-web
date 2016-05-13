@@ -3,6 +3,11 @@ export default class ImageList
   constructor($globalWrapper){
     this.currentCount = 0;
     this.$wrapper = $globalWrapper.find(".images");
+    this.$wrapper
+      .sortable({
+			  opacity: 0.8
+      })
+      .disableSelection();
     this.maxCount = $globalWrapper.attr('data-max-count');
     this.thumbWidth = $globalWrapper.attr('data-thumb-width');
     this.deleteLabel = $globalWrapper.attr('data-delete-label');

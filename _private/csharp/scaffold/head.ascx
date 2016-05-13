@@ -9,7 +9,7 @@
 </script>
 
 <script type="text/uri-list" data-role="chain-loader-list">
-  /sdx/package/jquery-file-upload/9.12.3/js/vendor/jquery.ui.widget.js
+  /sdx/package/jquery-ui/1.11.4/jquery-ui.min.js
 </script>
 
 <script type="text/uri-list" data-role="chain-loader-list">
