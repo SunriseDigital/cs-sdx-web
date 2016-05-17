@@ -10,7 +10,7 @@ var notifier = require('node-notifier');
 var uglify = require('gulp-uglify');
 
 ////////////////////////////////////////
-// utile
+// util
 var buildWebpack = function(config){
   webpack(config, function(err, stats) {
     //notifier
@@ -93,3 +93,35 @@ gulp.task('watch-static', function(){
 })
 
 gulp.task('static', ['copy-static', 'watch-static']);
+
+////////////////////////////////////////
+// package
+// package内でminのないものを生成する。
+
+gulp.task('package-css-min', function(){
+  gulp.src([
+      '../package/jquery-file-upload/**/*.css', '!../package/jquery-file-upload/**/*.min.css'
+    ])
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(cleanCSS({compatibility: 'ie9'}))
+    .pipe(gulp.dest(function(file) {
+      return file.base;
+    }))
+    ;
+});
+
+gulp.task('package-js-min', function(){
+  gulp.src([
+      '../package/jquery-file-upload/**/*.js', '!../package/jquery-file-upload/**/*.min.js'
+    ])
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(uglify({
+        preserveComments: 'license'
+      }).on('error', gutil.log)
+    )
+    .pipe(gulp.dest(function(file) {
+      return file.base;
+    }));
+});
+
+gulp.task('package-min', ['package-css-min', 'package-js-min']);
