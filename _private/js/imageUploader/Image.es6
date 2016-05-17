@@ -6,8 +6,24 @@ export default class Image
 
   createElement(imageList){
     const $img = $('<img />').attr("src", this.path);
+    $img.css({
+      display: "block",
+      width: "auto",
+      height: "auto",
+      margin: "auto"
+    });
+
+    const $imgWrapper = $('<div />');
+    $imgWrapper.append($img);
+
     if(imageList.thumbWidth){
-      $img.css("width", imageList.thumbWidth+"px");
+      $img.css("max-width", imageList.thumbWidth+"px");
+      $imgWrapper.css("width", imageList.thumbWidth+"px");
+    }
+
+    if(imageList.thumbHeight){
+      $img.css("max-height", imageList.thumbHeight+"px");
+      $imgWrapper.css("height", imageList.thumbHeight+"px");
     }
 
     const $li = $(`
@@ -17,7 +33,7 @@ export default class Image
   </div>
   <input type="hidden" value="${this.path}" name="${imageList.submitName}">
 </li>
-    `).append($img);
+    `).append($imgWrapper);
 
     $li.find('.delete').on('click', e => {
       e.preventDefault();

@@ -10,6 +10,7 @@ export default class ImageList
       .disableSelection();
     this.maxCount = $globalWrapper.attr('data-max-count');
     this.thumbWidth = $globalWrapper.attr('data-thumb-width');
+    this.thumbHeight = $globalWrapper.attr('data-thumb-height');
     this.deleteLabel = $globalWrapper.attr('data-delete-label');
     this.submitName = $globalWrapper.attr('data-submit-name')
   }
