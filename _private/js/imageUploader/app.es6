@@ -19,12 +19,18 @@ $(() => {
       limitMultiFileUploadSize: 4096 * 1024,
       formData: {name: $elem.attr("name")}
     }).bind("fileuploadsubmit", function (e, data) {
+      //一枚しかアップロードできないときは差し替え。
+      if(images.maxCount == 1){
+        images.clear();
+      }
       //多すぎる分を取り除く
       var removed = images.removeExtraFile(data.files);
       images.reserveCount(data.files.length);
 
+      //アップロードがキャンセルされた画像を画面に表示
       uploader.displayImageCountError(removed.map(file => file.name))
 
+      //アップロードする画像が無かったら何もしない。
       if(data.files.length == 0){
         return false;
       }

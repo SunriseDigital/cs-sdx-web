@@ -31,12 +31,18 @@ export default class ImageList
     this.currentCount += count;
   }
 
-  removeCount(){
-    --this.currentCount;
+  removeCount(count = 1){
+    this.currentCount -= count;
   }
 
   addImage(image){
     const $li = image.createElement(this);
     $li.appendTo(this.$wrapper);
+  }
+
+  clear(){
+    var $images = this.$wrapper.children();
+    this.removeCount($images.length);
+    $images.remove();
   }
 }
