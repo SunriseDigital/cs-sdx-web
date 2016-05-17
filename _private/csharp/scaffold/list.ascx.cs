@@ -27,7 +27,6 @@ namespace Sdx.WebLib.Control.Scaffold
       {
         conn.Open();
 
-        scaffold.ListPageUrl = new Web.Url(Request.Url.PathAndQuery);
         if (scaffold.EditPageUrl == null)
         {
           scaffold.EditPageUrl = new Web.Url(Request.Url.PathAndQuery);
@@ -42,24 +41,21 @@ namespace Sdx.WebLib.Control.Scaffold
         var deleteQuery = Request.QueryString["delete"];
         if (deleteQuery != null)
         {
-          if (Request.QueryString["delete"] != null)
+          conn.BeginTransaction();
+          try
           {
-            conn.BeginTransaction();
-            try
-            {
-              scaffold.DeleteRecord(Request.QueryString["delete"], conn);
-              conn.Commit();
-            }
-            catch (Exception)
-            {
-              conn.Rollback();
-              throw;
-            }
+            scaffold.DeleteRecord(deleteQuery, conn);
+            conn.Commit();
+          }
+          catch (Exception)
+          {
+            conn.Rollback();
+            throw;
+          }
 
-            if (!Sdx.Context.Current.IsDebugMode)
-            {
-              Response.Redirect(scaffold.ListPageUrl.Build(new String[]{"delete"}));
-            }
+          if (!Sdx.Context.Current.IsDebugMode)
+          {
+            Response.Redirect(scaffold.ListPageUrl.Build(new String[] { "delete" }));
           }
         }
 

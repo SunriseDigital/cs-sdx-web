@@ -53,6 +53,7 @@ namespace Sdx.WebLib.Control.Scaffold
             catch (Exception e)
             {
               conn.Rollback();
+              scaffold.CallRollbackHook(record);
               if (Sdx.Context.Current.IsDebugMode)
               {
                 throw;

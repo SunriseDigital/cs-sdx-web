@@ -25,7 +25,7 @@
       <li class="resplist-row list-row">
         <div class="resplist-items">
           <% foreach(var item in scaffold.DisplayList){ %>
-          <div class="resplist-item resplist-item-md<%if (item.ContainsKey("class")){ %><%= " "+item["class"] %><%} %>"<%if (item.ContainsKey("style")){ %> style="<%= item["style"] %>"<%} %>>
+          <div class="resplist-item resplist-item-md<%if (item.ContainsKey("class")){ %><%= " "+item["class"] %><%} %>"<%if (item.ContainsKey("style")){ %> style="<%=item["style"] %>"<%} %>><%//ここで出ている警告はstyle属性の`key: value;`という形式じゃないという警告なので無視します。 %>
             <div class="resplist-label"><%= item["label"] %></div>
             <div class="resplist-value"><%= item.Display(record, conn) %></div>
           </div>
@@ -33,7 +33,7 @@
         </div>
         <div class="resplist-footer clearfix">
           <div class="pull-right">
-            <a class="btn btn-primary" href="<%=scaffold.EditPageUrl.Build(new Dictionary<string, string> { {"id", record.GetString("id")} })%>"><%=Sdx.I18n.GetString("編集") %></a>
+            <a class="btn btn-primary" href="<%=scaffold.GetEditPagePath(record)%>"><%=Sdx.I18n.GetString("編集") %></a>
             <%if(!scaffold.SortingOrder.IsEmpty){ %>
             <div class="btn-group">
               <button class="btn btn-default sort up" data-sort-type="top"><i class="fa fa-step-backward fa-rotate-90"></i></button>
