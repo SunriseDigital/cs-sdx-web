@@ -56,6 +56,6 @@ $(() => {
       uploader.updateProgress(data.loaded / data.total * 100);
     }).bind("fileuploadstop", function (e, data) {
       uploader.hideProgress();
-    })
+    });
   });
 });

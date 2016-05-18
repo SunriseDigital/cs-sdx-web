@@ -100,7 +100,8 @@ gulp.task('static', ['copy-static', 'watch-static']);
 
 gulp.task('package-css-min', function(){
   gulp.src([
-      '../package/jquery-file-upload/**/*.css', '!../package/jquery-file-upload/**/*.min.css'
+      '../package/jquery-file-upload/**/*.css', '!../package/jquery-file-upload/**/*.min.css',
+      '../package/jquery-colorbox/**/*.css', '!../package/jquery-colorbox/**/*.min.css'
     ])
     .pipe(rename({ suffix: '.min' }))
     .pipe(cleanCSS({compatibility: 'ie9'}))

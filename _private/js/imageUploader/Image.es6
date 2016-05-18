@@ -32,8 +32,16 @@ export default class Image
     <button class="delete btn btn-danger btn-xs pull-right">${imageList.deleteLabel}</button>
   </div>
   <input type="hidden" value="${this.path}" name="${imageList.submitName}">
+  <a href="${this.path}" class="holder"></a>
 </li>
-    `).append($imgWrapper);
+    `);
+
+    $li.find(".holder")
+      .append($imgWrapper)
+      .colorbox({
+        maxWidth: '95%',
+        maxHeight: '95%'
+      });
 
     $li.find('.delete').on('click', e => {
       e.preventDefault();
