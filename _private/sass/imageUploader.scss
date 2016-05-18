@@ -1,12 +1,21 @@
-.fileinput-button{
-  margin-bottom: 1em;
-}
+@import "compass";
 
-.images{
-  .image{
-    margin-right: 1em;
-    .header{
-      margin-bottom: 5px;
+.sdx-image-uploader{
+  .fileinput-button{
+    margin-bottom: 1em;
+  }
+
+  .images{
+    .image{
+      margin-right: 1em;
+      .header{
+        margin-bottom: 5px;
+      }
     }
+  }
+
+  .progress{
+    height: 10px;
+    @include opacity(0)
   }
 }

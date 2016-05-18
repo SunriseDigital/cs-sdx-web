@@ -18,6 +18,8 @@ $(() => {
       sequentialUploads: true,
       limitMultiFileUploadSize: 4096 * 1024,
       formData: {name: $elem.attr("name")}
+    }).bind("fileuploadstart", function (e, data) {
+      uploader.showProgress();
     }).bind("fileuploadsubmit", function (e, data) {
       //一枚しかアップロードできないときは差し替え。
       if(images.maxCount == 1){
@@ -52,6 +54,8 @@ $(() => {
       }
     }).bind('fileuploadprogressall', function (e, data) {
       uploader.updateProgress(data.loaded / data.total * 100);
+    }).bind("fileuploadstop", function (e, data) {
+      uploader.hideProgress();
     })
   });
 });

@@ -1,10 +1,14 @@
-.fileinput-button {
+.sdx-image-uploader .fileinput-button {
   margin-bottom: 1em;
 }
-
-.images .image {
+.sdx-image-uploader .images .image {
   margin-right: 1em;
 }
-.images .image .header {
+.sdx-image-uploader .images .image .header {
   margin-bottom: 5px;
+}
+.sdx-image-uploader .progress {
+  height: 10px;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  opacity: 0;
 }

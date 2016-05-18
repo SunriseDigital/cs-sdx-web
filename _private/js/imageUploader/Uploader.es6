@@ -5,7 +5,8 @@ export default class Uploader
 {
   constructor($wrapper){
     this.$wrapper = $wrapper;
-    this.$progressBar = $wrapper.find(".progress .progress-bar")
+    this.$progressWrapper = $wrapper.find(".progress");
+    this.$progressBar = this.$progressWrapper.find(".progress-bar")
     this.imageList = new ImageList(this.$wrapper);
     this.maxCountMessage = this.$wrapper.attr('data-max-count-message');
   }
@@ -50,6 +51,14 @@ export default class Uploader
         $ul.append(`<li>${name}</li>`);
       });
     }
+  }
 
+  showProgress(){
+    clearTimeout(this.progressHideTimeout);
+    this.$progressWrapper.fadeTo(200, 1);
+  }
+
+  hideProgress(){
+    this.progressHideTimeout = setTimeout(() => this.$progressWrapper.fadeTo(300, 0), 800);
   }
 }
