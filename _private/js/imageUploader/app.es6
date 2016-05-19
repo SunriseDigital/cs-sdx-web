@@ -42,12 +42,13 @@ $(() => {
         images.addImage(image);
       });
     }).bind("fileuploadfail", function (e, data) {
+      images.cleanImageCount();
       try {
         var error = JSON.parse(data.jqXHR.responseText);
         if (error.type == "MaxRequestLength") {
           alert(error.maxLength + "KB以上はアップロードできません。");
         } else {
-          throw "";
+          throw new Error("Unknown error type " + error.type);
         }
       } catch (e) {
         alert("サーバーエラーです。")

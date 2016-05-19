@@ -46,4 +46,8 @@ export default class ImageList
     this.removeCount($images.length);
     $images.remove();
   }
+
+  cleanImageCount(){
+    this.currentCount = this.$wrapper.find('.image').length;
+  }
 }
