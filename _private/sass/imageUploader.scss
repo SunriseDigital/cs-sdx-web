@@ -16,6 +16,7 @@
 
   .progress{
     height: 10px;
+    margin-bottom: 12px;
     @include opacity(0)
   }
 }
