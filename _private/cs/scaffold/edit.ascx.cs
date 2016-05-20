@@ -9,45 +9,44 @@ namespace Sdx.WebLib.Control.Scaffold
 {
   public partial class Edit : System.Web.UI.UserControl
   {
-    protected Sdx.Scaffold.Manager scaffold;
+    public Sdx.Scaffold.Manager Scaffold { get; set; }
     protected Sdx.Html.Form form;
     protected Sdx.Db.Record record;
     protected Exception saveException;
 
     protected void Page_Load(object sender, EventArgs ev)
     {
-      this.scaffold = Sdx.Scaffold.Manager.CurrentInstance(this.Name);
       if (OutlineRank != null)
       {
-        scaffold.OutlineRank = (int)OutlineRank;
+        Scaffold.OutlineRank = (int)OutlineRank;
       }
 
-      this.scaffold.EditPageUrl = new Web.Url(Request.Url.PathAndQuery);
-      if (this.scaffold.ListPageUrl == null)
+      this.Scaffold.EditPageUrl = new Web.Url(Request.Url.PathAndQuery);
+      if (this.Scaffold.ListPageUrl == null)
       {
-        this.scaffold.ListPageUrl = new Web.Url(Request.Url.PathAndQuery);
+        this.Scaffold.ListPageUrl = new Web.Url(Request.Url.PathAndQuery);
       }
 
-      if (scaffold.Group != null)
+      if (Scaffold.Group != null)
       {
-        scaffold.Group.Init();
+        Scaffold.Group.Init();
       }
 
-      using(var conn = scaffold.Db.CreateConnection())
+      using(var conn = Scaffold.Db.CreateConnection())
       {
         conn.Open();
-        record = this.scaffold.LoadRecord(Request.Params, conn);
-        this.form = this.scaffold.BuildForm(record, conn);
+        record = this.Scaffold.LoadRecord(Request.Params, conn);
+        this.form = this.Scaffold.BuildForm(record, conn);
 
         if (Request.Form.Count > 0)
         {
-          scaffold.BindToForm(form, Request.Form);
+          Scaffold.BindToForm(form, Request.Form);
           if (form.ExecValidators())
           {
             conn.BeginTransaction();
             try
             {
-              scaffold.Save(record, form.ToNameValueCollection(), conn);
+              Scaffold.Save(record, form.ToNameValueCollection(), conn);
               conn.Commit();
             }
             catch (Exception e)
@@ -63,7 +62,7 @@ namespace Sdx.WebLib.Control.Scaffold
 
             if (!Sdx.Context.Current.IsDebugMode && this.saveException == null)
             {
-              Response.Redirect(scaffold.ListPageUrl.Build());
+              Response.Redirect(Scaffold.ListPageUrl.Build());
             }
           }
         }

@@ -4,11 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-namespace Sdx.WebLib.Control.Scaffold
+namespace Sdx.WebLib.Cs.Scaffold
 {
   public partial class List : System.Web.UI.UserControl
   {
-    protected Sdx.Scaffold.Manager scaffold;
+    public Sdx.Scaffold.Manager Scaffold { get; set; }
     protected dynamic recordSet;
     protected Sdx.Html.Select groupSelector;
     protected Sdx.Db.Connection conn;
@@ -16,26 +16,25 @@ namespace Sdx.WebLib.Control.Scaffold
 
     protected void Page_Load(object sender, EventArgs e)
     {
-      scaffold = Sdx.Scaffold.Manager.CurrentInstance(this.Name);
       if (OutlineRank != null)
       {
-        scaffold.OutlineRank = (int)OutlineRank;
+        Scaffold.OutlineRank = (int)OutlineRank;
       }
       
-      conn = scaffold.Db.CreateConnection();
+      conn = Scaffold.Db.CreateConnection();
       try
       {
         conn.Open();
 
-        if (scaffold.EditPageUrl == null)
+        if (Scaffold.EditPageUrl == null)
         {
-          scaffold.EditPageUrl = new Web.Url(Request.Url.PathAndQuery);
+          Scaffold.EditPageUrl = new Web.Url(Request.Url.PathAndQuery);
         }
 
-        if (scaffold.Group != null)
+        if (Scaffold.Group != null)
         {
-          scaffold.Group.Init();
-          groupSelector = scaffold.Group.BuildSelector(conn);
+          Scaffold.Group.Init();
+          groupSelector = Scaffold.Group.BuildSelector(conn);
         }
 
         var deleteQuery = Request.QueryString["delete"];
@@ -44,7 +43,7 @@ namespace Sdx.WebLib.Control.Scaffold
           conn.BeginTransaction();
           try
           {
-            scaffold.DeleteRecord(deleteQuery, conn);
+            Scaffold.DeleteRecord(deleteQuery, conn);
             conn.Commit();
           }
           catch (Exception)
@@ -55,19 +54,19 @@ namespace Sdx.WebLib.Control.Scaffold
 
           if (!Sdx.Context.Current.IsDebugMode)
           {
-            Response.Redirect(scaffold.ListPageUrl.Build(new String[] { "delete" }));
+            Response.Redirect(Scaffold.ListPageUrl.Build(new String[] { "delete" }));
           }
         }
 
         Sdx.Pager pager = null;
-        if(scaffold.HasPerPage)
+        if(Scaffold.HasPerPage)
         {
           pager = new Sdx.Pager();
-          pager.PerPage = scaffold.PerPage;
-          pagerLink = new Sdx.Html.PagerLink(pager, scaffold.ListPageUrl);
+          pager.PerPage = Scaffold.PerPage;
+          pagerLink = new Sdx.Html.PagerLink(pager, Scaffold.ListPageUrl);
         }
 
-        this.recordSet = scaffold.FetchRecordSet(conn, pager);
+        this.recordSet = Scaffold.FetchRecordSet(conn, pager);
 
         var sortingSubmit = Request.Form["submit_sorting_order"];
         if (sortingSubmit != null)
@@ -75,7 +74,7 @@ namespace Sdx.WebLib.Control.Scaffold
           conn.BeginTransaction();
           try
           {
-            scaffold.Sort(recordSet, Request.Form.GetValues("pkeys"), conn);
+            Scaffold.Sort(recordSet, Request.Form.GetValues("pkeys"), conn);
             conn.Commit();
           }
           catch (Exception)
@@ -86,7 +85,7 @@ namespace Sdx.WebLib.Control.Scaffold
 
           if (!Sdx.Context.Current.IsDebugMode)
           {
-            Response.Redirect(scaffold.ListPageUrl.Build());
+            Response.Redirect(Scaffold.ListPageUrl.Build());
           }
         }
       }
