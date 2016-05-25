@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -51,6 +52,16 @@ namespace Sdx.WebLib.Control.Uploader
 
       }
 
+      //using (var image = System.Drawing.Image.FromFile(@"C:\Projects\cs-furonavi\cs-sdx\web\tmp\01584_ladybughdr_2560x1600.jpg"))
+      //{
+      //  Sdx.Context.Current.Debug.Log(Sdx.Util.Image.GetFileExtension(image));
+      //}
+
+      //var fileName = String.Format("{0}.{1}", Path.GetTempFileName(), "jpg");
+      //Sdx.Context.Current.Debug.Log(fileName);
+
+      //var stream = Sdx.Util.Path.CreateRandomNameStream(@"C:\Projects\cs-furonavi\cs-sdx\web\tmp\", "jpg");
+      //Sdx.Context.Current.Debug.Log(stream.Name);
       Sdx.Web.Helper.JsonResponse(response);
     }
 
@@ -71,16 +82,24 @@ namespace Sdx.WebLib.Control.Uploader
       }
 
       using (var image = System.Drawing.Image.FromStream(postedFile.InputStream))
-      using (var minCheckedImage = HandleMin(image, fileData))
-      using (var checkedImage = HandleMax(minCheckedImage, fileData))
       {
-        if(checkedImage != null)
+        //元画像のRawFormatをとっておかないとリサイズ時に生成されたものは不明なフォーマットになっている。
+        var format = image.RawFormat;
+        using (var minCheckedImage = HandleMin(image, fileData))
+        using (var checkedImage = HandleMax(minCheckedImage, fileData))
         {
-          var localFullPath = Page.MapPath(UploadWebPath + postedFile.FileName);
-          checkedImage.Save(localFullPath);
-          fileData["path"] = Sdx.Util.Path.MapWebPath(localFullPath);
-          fileData["width"] = checkedImage.Width.ToString();
-          fileData["height"] = checkedImage.Height.ToString();
+          if (checkedImage != null)
+          {
+            using (var stream = Sdx.Util.Path.CreateRandomNameStream(
+              Server.MapPath(UploadWebPath),
+              Sdx.Util.Image.GetFileExtension(format)
+            ))
+            {
+              if (checkedImage.RawFormat == null) throw new Exception("stream");
+              checkedImage.Save(stream, format);
+              fileData["path"] = Sdx.Util.Path.MapWebPath(stream.Name);
+            }
+          }
         }
       }
     }
