@@ -18,8 +18,9 @@ $(() => {
       sequentialUploads: true,
       limitMultiFileUploadSize: 4096 * 1024,
       formData: {name: $elem.attr("name")}
-    }).bind("fileuploadstart", function (e, data) {
+    }).bind("fileuploadchange", function (e, data) {
       uploader.showProgress();
+      uploader.clearErrors();
     }).bind("fileuploadsubmit", function (e, data) {
       //一枚しかアップロードできないときは差し替え。
       if(images.maxCount == 1){
@@ -38,8 +39,13 @@ $(() => {
       }
     }).bind("fileuploaddone", function (e, data) {
       $.each(data.result.files, function (index, file) {
-        const image = new Image(file.name);
-        images.addImage(image);
+        if(file.error){
+          images.removeCount();
+          uploader.displayError(`${file.name}: ${file.error}`);
+        } else {
+          const image = new Image(file.path);
+          images.addImage(image);
+        }
       });
     }).bind("fileuploadfail", function (e, data) {
       images.cleanImageCount();

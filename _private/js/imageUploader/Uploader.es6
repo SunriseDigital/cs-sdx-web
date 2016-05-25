@@ -9,6 +9,8 @@ export default class Uploader
     this.$progressBar = this.$progressWrapper.find(".progress-bar")
     this.imageList = new ImageList(this.$wrapper);
     this.maxCountMessage = this.$wrapper.attr('data-max-count-message');
+    this.$errors = this.$wrapper.find('.errors');
+    this.$countErrors = this.$wrapper.find('.count-errors');
   }
 
   getImageList(){
@@ -30,27 +32,22 @@ export default class Uploader
   }
 
   displayImageCountError(files){
-    var $div = this.$wrapper.find('.image-error');
-    if($div.length == 0){
-      $div = $(`
-<div class="image-error alert alert-danger" role="alert">
-</div>
-      `).appendTo(this.$wrapper);
-    }
+    if(files.length > 0){
+      if(this.$countErrors.children().length === 0){
+        this.$countErrors.append(`<li>${this.maxCountMessage.split('%MaxCount%').join(this.imageList.maxCount)}</li>`);
+      }
 
-    if(files.length == 0){
-      $div.remove();
-    } else {
-      $div.html(`
-        ${this.maxCountMessage.split('%MaxCount%').join(this.imageList.maxCount)}
-        <ul class="file-list"></ul>
-      `);
-
-      const $ul = $div.find('.file-list');
-      files.forEach(name => {
-        $ul.append(`<li>${name}</li>`);
-      });
+      files.forEach(fileName => this.$countErrors.append(`<li class="files">${fileName}</li>`));
     }
+  }
+
+  displayError(message){
+    this.$errors.append(`<li>${message}</li>`);
+  }
+
+  clearErrors(){
+    this.$errors.children().remove();
+    this.$countErrors.children().remove();
   }
 
   showProgress(){
