@@ -16,7 +16,7 @@ $(() => {
       dataType: 'json',
       singleFileUploads: false,
       sequentialUploads: true,
-      limitMultiFileUploadSize: 4096 * 1024,
+      limitMultiFileUploadSize: uploader.getMaxRequestLength() * 1024,
       formData: {name: $elem.attr("name")}
     }).bind("fileuploadchange", function (e, data) {
       uploader.showProgress();
@@ -52,12 +52,12 @@ $(() => {
       try {
         var error = JSON.parse(data.jqXHR.responseText);
         if (error.type == "MaxRequestLength") {
-          alert(error.maxLength + "KB以上はアップロードできません。");
+          alert(uploader.getMaxRequestLengthMessage());
         } else {
           throw new Error("Unknown error type " + error.type);
         }
       } catch (e) {
-        alert("サーバーエラーです。")
+        alert(uploader.getUnknownErrorMessage());
       }
     }).bind('fileuploadprogressall', function (e, data) {
       uploader.updateProgress(data.loaded / data.total * 100);

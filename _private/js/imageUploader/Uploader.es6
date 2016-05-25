@@ -9,6 +9,9 @@ export default class Uploader
     this.$progressBar = this.$progressWrapper.find(".progress-bar")
     this.imageList = new ImageList(this.$wrapper);
     this.maxCountMessage = this.$wrapper.attr('data-max-count-message');
+    this.unknownErrorMessage = this.$wrapper.attr('data-unknown-error-message');
+    this.maxRequestLengthMessage = this.$wrapper.attr('data-max-request-length-message');
+    this.maxRequestLength = this.$wrapper.attr('data-max-request-length');
     this.$errors = this.$wrapper.find('.errors');
     this.$countErrors = this.$wrapper.find('.count-errors');
   }
@@ -57,5 +60,17 @@ export default class Uploader
 
   hideProgress(){
     this.progressHideTimeout = setTimeout(() => this.$progressWrapper.fadeTo(300, 0), 800);
+  }
+
+  getUnknownErrorMessage(){
+    return this.unknownErrorMessage;
+  }
+
+  getMaxRequestLengthMessage(){
+    return this.maxRequestLengthMessage;
+  }
+
+  getMaxRequestLength(){
+    return this.maxRequestLength;
   }
 }
