@@ -48,20 +48,8 @@ namespace Sdx.WebLib.Control.Uploader
         ProcessPostedFile(postedFile, fileData);
 
         response["files"].Add(fileData);
-
-
       }
 
-      //using (var image = System.Drawing.Image.FromFile(@"C:\Projects\cs-furonavi\cs-sdx\web\tmp\01584_ladybughdr_2560x1600.jpg"))
-      //{
-      //  Sdx.Context.Current.Debug.Log(Sdx.Util.Image.GetFileExtension(image));
-      //}
-
-      //var fileName = String.Format("{0}.{1}", Path.GetTempFileName(), "jpg");
-      //Sdx.Context.Current.Debug.Log(fileName);
-
-      //var stream = Sdx.Util.Path.CreateRandomNameStream(@"C:\Projects\cs-furonavi\cs-sdx\web\tmp\", "jpg");
-      //Sdx.Context.Current.Debug.Log(stream.Name);
       Sdx.Web.Helper.JsonResponse(response);
     }
 
