@@ -152,6 +152,41 @@ ul.resplist {
     padding: 0 12px;
   }
 }
+.sdx-image-uploader .fileinput-button {
+  margin-bottom: 1em;
+}
+.sdx-image-uploader .images .image {
+  margin-right: 10px;
+}
+.sdx-image-uploader .images .image .header {
+  margin-bottom: 5px;
+  text-align: center;
+}
+.sdx-image-uploader .images .image .header .title {
+  font-size: 11px;
+  font-weight: bold;
+  color: #666;
+  line-height: 20px;
+  height: 20px;
+  overflow: hidden;
+}
+.sdx-image-uploader .images .image .header .col-xs-3, .sdx-image-uploader .images .image .header .col-xs-6 {
+  padding: 0;
+}
+.sdx-image-uploader .images .image .body {
+  margin-bottom: 10px;
+}
+.sdx-image-uploader .progress {
+  height: 10px;
+  margin-bottom: 12px;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  opacity: 0;
+}
+.sdx-image-uploader .count-errors .files {
+  padding-left: 20px;
+  font-size: 90%;
+}
+
 .page-number {
   font-weight: bold;
   color: #888;

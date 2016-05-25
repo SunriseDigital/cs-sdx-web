@@ -6,10 +6,15 @@
 
 ##　リスト
 
-* [jQuery](jquery) - [公式](https://jquery.com/)
+
 * [Bootstrap](bootstrap) - [公式](http://getbootstrap.com/)
 * [fontawesome](fontawesome) - [公式](https://fortawesome.github.io/Font-Awesome/)
+* [jQuery](jquery) - [公式](https://jquery.com/)
+* [jQueryColorBox](jquery-colorbox) - [公式](http://www.jacklmoore.com/colorbox/)
+* [jQueryFileUpload](jquery-file-upload) - [公式](https://blueimp.github.io/jQuery-File-Upload/)
+* [jQueryUI](jquery-ui) - [公式](https://jqueryui.com)
 * [momentjs](momentjs) - [公式](http://momentjs.com/)
+
 
 ## 配置時の注意
 

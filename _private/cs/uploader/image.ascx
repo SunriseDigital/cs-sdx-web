@@ -1,0 +1,1 @@
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="image.ascx.cs" Inherits="Sdx.WebLib.Control.Uploader.Image" %>

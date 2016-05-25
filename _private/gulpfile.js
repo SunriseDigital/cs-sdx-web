@@ -4,13 +4,13 @@ var gulp = require('gulp');
 var gutil = require("gulp-util");
 var webpack = require('webpack');
 var compass = require('gulp-compass');
-var minifycss = require('gulp-minify-css');
+var cleanCSS = require('gulp-clean-css');
 var rename = require('gulp-rename');
 var notifier = require('node-notifier');
 var uglify = require('gulp-uglify');
 
 ////////////////////////////////////////
-// utile
+// util
 var buildWebpack = function(config){
   webpack(config, function(err, stats) {
     //notifier
@@ -52,7 +52,7 @@ gulp.task('build-sass', function() {
     })
     .pipe(gulp.dest('../css'))
     .pipe(rename({ suffix: '.min' }))
-    .pipe(minifycss())
+    .pipe(cleanCSS({compatibility: 'ie9'}))
     .pipe(gulp.dest('../css'))
     ;
 });
@@ -66,8 +66,7 @@ gulp.task('sass', ['build-sass', 'watch-sass']);
 ////////////////////////////////////////
 // scaffold
 gulp.task('build-scaffold', function() {
-  var config = require('./js/scaffold/webpack.config.js');
-  buildWebpack(config);
+  buildWebpack(require('./js/scaffold/webpack.config.js'));
 });
 gulp.task('scaffold', ['build-scaffold']);
 
@@ -77,7 +76,7 @@ gulp.task('scaffold', ['build-scaffold']);
 // js/static内のファイルをコピーしてなおかつuglifyする。
 var staticSources = [ 'js/static/*.js', 'js/static/**/*.js' ];
 gulp.task('copy-static', function(){
-  
+
   gulp.src(staticSources, { base: 'js/static' })
     .pipe( gulp.dest( '../js/static' ));
 
@@ -96,10 +95,34 @@ gulp.task('watch-static', function(){
 gulp.task('static', ['copy-static', 'watch-static']);
 
 ////////////////////////////////////////
-// require
-gulp.task('build-require', function() {
-  var config = require('./js/require/webpack.config.js');
-  buildWebpack(config);
-});
-gulp.task('require', ['build-require', 'watch-sass']);
+// package
+// package内でminのないものを生成する。
 
+gulp.task('package-css-min', function(){
+  gulp.src([
+      '../package/jquery-file-upload/**/*.css', '!../package/jquery-file-upload/**/*.min.css',
+      '../package/jquery-colorbox/**/*.css', '!../package/jquery-colorbox/**/*.min.css'
+    ])
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(cleanCSS({compatibility: 'ie9'}))
+    .pipe(gulp.dest(function(file) {
+      return file.base;
+    }))
+    ;
+});
+
+gulp.task('package-js-min', function(){
+  gulp.src([
+      '../package/jquery-file-upload/**/*.js', '!../package/jquery-file-upload/**/*.min.js'
+    ])
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(uglify({
+        preserveComments: 'license'
+      }).on('error', gutil.log)
+    )
+    .pipe(gulp.dest(function(file) {
+      return file.base;
+    }));
+});
+
+gulp.task('package-min', ['package-css-min', 'package-js-min']);

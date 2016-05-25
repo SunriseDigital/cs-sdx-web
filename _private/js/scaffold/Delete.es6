@@ -1,6 +1,7 @@
 $(() => {
   var deleteMessage = $('input[type=hidden][name=DeleteMessage]').val();
   $(".sdx-scaffold-list .btn.delete").on('click', (e, elem) => {
+    e.preventDefault();
     var item = $(e.target).closest('.list-row');
 
     if(confirm(deleteMessage)){
@@ -13,8 +14,8 @@ $(() => {
       }
 
       url += location.hash;
-
       location.href = url;
+      return false;
     }
   });
 });

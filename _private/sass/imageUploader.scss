@@ -1,0 +1,43 @@
+@import "compass";
+
+.sdx-image-uploader{
+  .fileinput-button{
+    margin-bottom: 1em;
+  }
+
+  .images{
+    .image{
+      margin-right: 10px;
+      .header{
+        margin-bottom: 5px;
+        text-align: center;
+        .title{
+          font-size: 11px;
+          font-weight: bold;
+          color: #666;
+          line-height: 20px;
+          height: 20px;
+          overflow: hidden;
+        }
+
+        .col-xs-3, .col-xs-6{
+          padding: 0;
+        }
+      }
+      .body{
+        margin-bottom: 10px;
+      }
+    }
+  }
+
+  .progress{
+    height: 10px;
+    margin-bottom: 12px;
+    @include opacity(0)
+  }
+
+  .count-errors .files{
+    padding-left: 20px;
+    font-size: 90%;
+  }
+}
