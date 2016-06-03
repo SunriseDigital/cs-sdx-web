@@ -11,7 +11,6 @@ namespace Sdx.WebLib.Cs.Scaffold
     public Sdx.Scaffold.Manager Scaffold { get; set; }
     protected dynamic recordSet;
     protected Sdx.Html.Select groupSelector;
-    protected Sdx.Db.Connection conn;
     protected Sdx.Html.PagerLink pagerLink;
 
     protected void Page_Load(object sender, EventArgs e)
@@ -21,11 +20,8 @@ namespace Sdx.WebLib.Cs.Scaffold
         Scaffold.OutlineRank = (int)OutlineRank;
       }
       
-      conn = Scaffold.Db.CreateConnection();
       try
       {
-        conn.Open();
-
         if (Scaffold.EditPageUrl == null)
         {
           Scaffold.EditPageUrl = new Web.Url(Request.Url.PathAndQuery);
@@ -34,21 +30,21 @@ namespace Sdx.WebLib.Cs.Scaffold
         if (Scaffold.Group != null)
         {
           Scaffold.Group.Init();
-          groupSelector = Scaffold.Group.BuildSelector(conn);
+          groupSelector = Scaffold.Group.BuildSelector(Scaffold.Db.SharedConnection);
         }
 
         var deleteQuery = Request.QueryString["delete"];
         if (deleteQuery != null)
         {
-          conn.BeginTransaction();
+          Scaffold.Db.SharedConnection.BeginTransaction();
           try
           {
-            Scaffold.DeleteRecord(deleteQuery, conn);
-            conn.Commit();
+            Scaffold.DeleteRecord(deleteQuery, Scaffold.Db.SharedConnection);
+            Scaffold.Db.SharedConnection.Commit();
           }
           catch (Exception)
           {
-            conn.Rollback();
+            Scaffold.Db.SharedConnection.Rollback();
             throw;
           }
 
@@ -66,20 +62,20 @@ namespace Sdx.WebLib.Cs.Scaffold
           pagerLink = new Sdx.Html.PagerLink(pager, Scaffold.ListPageUrl);
         }
 
-        this.recordSet = Scaffold.FetchRecordSet(conn, pager);
+        this.recordSet = Scaffold.FetchRecordSet(Scaffold.Db.SharedConnection, pager);
 
         var sortingSubmit = Request.Form["submit_sorting_order"];
         if (sortingSubmit != null)
         {
-          conn.BeginTransaction();
+          Scaffold.Db.SharedConnection.BeginTransaction();
           try
           {
-            Scaffold.Sort(recordSet, Request.Form.GetValues("pkeys"), conn);
-            conn.Commit();
+            Scaffold.Sort(recordSet, Request.Form.GetValues("pkeys"), Scaffold.Db.SharedConnection);
+            Scaffold.Db.SharedConnection.Commit();
           }
           catch (Exception)
           {
-            conn.Rollback();
+            Scaffold.Db.SharedConnection.Rollback();
             throw;
           }
 
@@ -91,19 +87,8 @@ namespace Sdx.WebLib.Cs.Scaffold
       }
       catch (Exception)
       {
-        conn.Dispose();
         throw;
       }
-    }
-
-    protected override void OnUnload(EventArgs e)
-    {
-      if (this.conn != null)
-      {
-        this.conn.Dispose();
-      }
-      
-      base.OnUnload(e);
     }
 
     public string Name { get; set; }

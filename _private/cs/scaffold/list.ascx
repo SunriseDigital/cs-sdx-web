@@ -27,7 +27,7 @@
           <% foreach(var item in Scaffold.DisplayList){ %>
           <div class="resplist-item resplist-item-md<%if (item.ContainsKey("class")){ %><%= " "+item["class"] %><%} %>"<%if (item.ContainsKey("style")){ %> style="<%=item["style"] %>"<%} %>><%//ここで出ている警告はstyle属性の`key: value;`という形式じゃないという警告なので無視します。 %>
             <div class="resplist-label"><%= item["label"] %></div>
-            <div class="resplist-value"><%= item.Display(record, conn) %></div>
+            <div class="resplist-value"><%= item.Display(record, Scaffold.Db.SharedConnection) %></div>
           </div>
           <% } %>
         </div>

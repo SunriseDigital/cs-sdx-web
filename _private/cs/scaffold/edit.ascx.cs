@@ -32,26 +32,24 @@ namespace Sdx.WebLib.Control.Scaffold
         Scaffold.Group.Init();
       }
 
-      using(var conn = Scaffold.Db.CreateConnection())
-      {
-        conn.Open();
-        record = this.Scaffold.LoadRecord(Request.Params, conn);
-        this.form = this.Scaffold.BuildForm(record, conn);
 
-        if (Request.Form.Count > 0)
+      record = this.Scaffold.LoadRecord(Request.Params, Scaffold.Db.SharedConnection);
+      this.form = this.Scaffold.BuildForm(record, Scaffold.Db.SharedConnection);
+      if (Request.Form.Count > 0)
+      {
+        Scaffold.BindToForm(form, Request.Form);
+        if (form.ExecValidators())
         {
-          Scaffold.BindToForm(form, Request.Form);
-          if (form.ExecValidators())
+          using (Scaffold.Db.SharedConnection.BeginTransaction())
           {
-            conn.BeginTransaction();
             try
             {
-              Scaffold.Save(record, form.ToNameValueCollection(), conn);
-              conn.Commit();
+              Scaffold.Save(record, form.ToNameValueCollection(), Scaffold.Db.SharedConnection);
+              Scaffold.Db.SharedConnection.Commit();
             }
             catch (Exception e)
             {
-              conn.Rollback();
+              Scaffold.Db.SharedConnection.Rollback();
               record.DisposeOnRollback();
               if (Sdx.Context.Current.IsDebugMode)
               {
@@ -59,11 +57,11 @@ namespace Sdx.WebLib.Control.Scaffold
               }
               this.saveException = e;
             }
+          }
 
-            if (!Sdx.Context.Current.IsDebugMode && this.saveException == null)
-            {
-              Response.Redirect(Scaffold.ListPageUrl.Build());
-            }
+          if (!Sdx.Context.Current.IsDebugMode && this.saveException == null)
+          {
+            Response.Redirect(Scaffold.ListPageUrl.Build());
           }
         }
       }
