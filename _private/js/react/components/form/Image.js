@@ -6,6 +6,8 @@ export default class Image extends Component {
     this.state = {
       naturalSizeList: {}
     }
+
+    this.newImageId = 1;
   }
 
 
@@ -40,10 +42,28 @@ export default class Image extends Component {
     });
   }
 
+  onChangeInput(e){
+    const input = e.currentTarget;
+    if (input.files && input.files.length > 0) {
+        for (var i = 0; i < input.files.length; i++) {
+          const imageId = 'new_' + this.newImageId++;
+          const reader = new FileReader();
+          const file = input.files[i];
+          reader.onload = (e) => {
+            this.props.onValueChange({
+              code: this.props.data.code,
+              values: [...this.props.values, {id: imageId, path: e.target.result, file: file}],
+            });
+          }
+          reader.readAsDataURL(file)
+        }
+    }
+  }
+
   render() {
     return (
       <div>
-        <input className="form-control" type="file"/>
+        <input className="form-control" type="file" onChange={e => this.onChangeInput(e)} multiple />
         <ul className="clearfix list-unstyled">
           {this.props.values.map(image => {
             return (
