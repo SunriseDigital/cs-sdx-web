@@ -52,6 +52,7 @@ export default class TextBase extends Component {
   			  opacity: 0.8,
           handle: '.handle',
           stop: (ev, ui) => {
+            this.onValueChange();
           }
         })
     }
@@ -62,6 +63,14 @@ export default class TextBase extends Component {
     values.push({id: 'new_' + this.newId++, value: ""})
     this.props.onValueChange({
       values: values,
+      code: this.props.data.code
+    });
+  }
+
+  onClickDelete(e){
+    const id = e.currentTarget.getAttribute("data-id");
+    this.props.onValueChange({
+      values: this.props.values.filter(target => target.id != id),
       code: this.props.data.code
     });
   }
@@ -80,7 +89,21 @@ export default class TextBase extends Component {
         {addButton}
         <ul ref="wrapper" className="list-unstyled">
           {this.props.values.map(target => {
-            return this.createFormTag(target)
+            return (
+              <div key={target.id} className="clearfix">
+                <div className="handle">
+                  <i className="fa fa-bars" aria-hidden="true"></i>
+                </div>
+                <div className="body">
+                  {this.createFormTag(target)}
+                </div>
+                <div className="delete">
+                  <button data-id={target.id} className="btn btn-danger" type="button" onClick={(e) => this.onClickDelete(e)}>
+                    <i className="fa fa-times" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+            )
           })}
         </ul>
       </div>
