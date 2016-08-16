@@ -3,23 +3,32 @@ import React, { Component } from 'react'
 export default class TextBase extends Component {
   constructor(props){
     super(props);
-      this.newId = 1;
+    this.newId = 1;
+
+    const inputs = [];
+    this.props.values.forEach((target) => {
+      inputs.push(this.createFormTag(target))
+    });
+    this.state = {
+      inputs: inputs
+    }
+
+    this.$wrapper = null;
   }
 
   getCount(){
     return this.props.data.count === undefined ? 1 : this.props.data.count;
   }
 
-  onValueChange(){
-    const count = this.getCount();
+  onValueChange(e){
     const values = [];
-    for (var i = 0; i < count; i++) {
-      const elem = this.refs["input-" + i];
+    this.$wrapper.find('.text-form').each((key, elem) => {
+      const $elem = $(elem)
       values.push({
-        value: elem.value,
-        id: elem.getAttribute('data-id'),
+        id: $elem.attr("data-id"),
+        value: $elem.val(),
       });
-    }
+    });
 
     this.props.onValueChange({
       values: values,
@@ -32,32 +41,49 @@ export default class TextBase extends Component {
   }
 
   componentDidMount(){
-    const $wrapper = $(this.refs.wrapper);
-    $wrapper
-      .sortable({
-			  opacity: 0.8,
-        handle: '.handle',
-        stop: (ev, ui) => {
+    this.$wrapper = $(this.refs.wrapper);
+    if(this.props.data.count == 1){
+      if(this.props.values.length == 0){
+        this.onClickAdd();
+      }
+    } else {
+      this.$wrapper
+        .sortable({
+  			  opacity: 0.8,
+          handle: '.handle',
+          stop: (ev, ui) => {
+          }
+        })
+    }
+  }
 
-        }
-      })
+  onClickAdd(){
+    const values = [...this.props.values];
+    values.push({id: 'new_' + this.newId++, value: ""})
+    this.props.onValueChange({
+      values: values,
+      code: this.props.data.code
+    });
   }
 
   render() {
-    const count = this.getCount();
-    const inputs = [];
-    for (var i = 0; i < count; i++) {
-      const target = this.props.values[i] ? this.props.values[i] : {};
-      inputs.push(
-        <li data-id={target.id} key={i}>
-          <span className="handle" ><i className="fa fa-bars" aria-hidden="true"></i></span>{this.createFormTag(i, target)}
-        </li>
-      );
+    let addButton = null;
+    if(this.props.data.count > 1){
+      addButton = (
+        <button className="btn btn-primary" type="button" onClick={() => this.onClickAdd()}>
+          <i className="fa fa-plus" aria-hidden="true"></i>&nbsp; 追加
+        </button>
+      )
     }
     return (
-      <ul ref="wrapper" className="list-unstyled">
-        {inputs}
-      </ul>
+      <div>
+        {addButton}
+        <ul ref="wrapper" className="list-unstyled">
+          {this.props.values.map(target => {
+            return this.createFormTag(target)
+          })}
+        </ul>
+      </div>
     )
   }
 }

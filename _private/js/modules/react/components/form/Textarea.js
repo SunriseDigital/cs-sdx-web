@@ -2,9 +2,19 @@ import TextBase from './TextBase';
 
 
 export default class Textarea extends TextBase {
-  createFormTag(key, target){
+  createFormTag(target){
     return (
-      <textarea ref={"input-" + key} className="form-control" name="" data-id={target.id ? target.id : 'new_' + this.newId++} cols="30" rows="10" onChange={(e) => this.onValueChange(e)} value={target.value||""}></textarea>
+      <li key={target.id}>
+        <textarea
+          className="form-control text-form"
+          name=""
+          data-id={target.id}
+          cols="30"
+          rows="10"
+          onChange={(e) => this.onValueChange(e)} value={target.value||""}
+        >
+        </textarea>
+      </li>
     )
   }
 }
