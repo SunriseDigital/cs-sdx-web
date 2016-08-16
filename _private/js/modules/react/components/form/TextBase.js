@@ -75,15 +75,38 @@ export default class TextBase extends Component {
     });
   }
 
+  getDeleteButton(target){
+    if(this.props.data.count == 1){
+      return null;
+    } else {
+      return (
+        <div className="delete">
+          <button data-id={target.id} className="btn btn-danger" type="button" onClick={(e) => this.onClickDelete(e)}>
+            <i className="fa fa-times" aria-hidden="true"></i>
+          </button>
+        </div>
+      )
+    }
+  }
+
   render() {
     let addButton = null;
+    let dragHandle = null;
     if(this.props.data.count > 1){
       addButton = (
         <button className="btn btn-primary" type="button" onClick={() => this.onClickAdd()}>
           <i className="fa fa-plus" aria-hidden="true"></i>&nbsp; 追加
         </button>
       )
+
+      dragHandle = (
+        <div className="handle">
+          <i className="fa fa-bars" aria-hidden="true"></i>
+        </div>
+      )
     }
+
+
     return (
       <div>
         {addButton}
@@ -91,17 +114,11 @@ export default class TextBase extends Component {
           {this.props.values.map(target => {
             return (
               <div key={target.id} className="clearfix">
-                <div className="handle">
-                  <i className="fa fa-bars" aria-hidden="true"></i>
-                </div>
+                {dragHandle}
                 <div className="body">
                   {this.createFormTag(target)}
                 </div>
-                <div className="delete">
-                  <button data-id={target.id} className="btn btn-danger" type="button" onClick={(e) => this.onClickDelete(e)}>
-                    <i className="fa fa-times" aria-hidden="true"></i>
-                  </button>
-                </div>
+                {this.getDeleteButton(target)}
               </div>
             )
           })}
