@@ -10,7 +10,7 @@ export default class TextBase extends Component {
     return this.props.data.count === undefined ? 1 : this.props.data.count;
   }
 
-  onValueChange(e){
+  onValueChange(){
     const count = this.getCount();
     const values = [];
     for (var i = 0; i < count; i++) {
@@ -31,19 +31,31 @@ export default class TextBase extends Component {
     throw new Error("Imprements createFormTag");
   }
 
+  componentDidMount(){
+    const $wrapper = $(this.refs.wrapper);
+    $wrapper
+      .sortable({
+			  opacity: 0.8,
+        handle: '.handle',
+        stop: (ev, ui) => {
+
+        }
+      })
+  }
+
   render() {
     const count = this.getCount();
     const inputs = [];
     for (var i = 0; i < count; i++) {
       const target = this.props.values[i] ? this.props.values[i] : {};
       inputs.push(
-        <li key={i}>
-          {this.createFormTag(i, target)}
+        <li data-id={target.id} key={i}>
+          <span className="handle" ><i className="fa fa-bars" aria-hidden="true"></i></span>{this.createFormTag(i, target)}
         </li>
       );
     }
     return (
-      <ul className="list-unstyled">
+      <ul ref="wrapper" className="list-unstyled">
         {inputs}
       </ul>
     )
