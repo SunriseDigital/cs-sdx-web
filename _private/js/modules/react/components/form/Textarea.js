@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 export default class Textarea extends Component {
   constructor(props){
     super(props);
+    this.newId = 1;
   }
 
   getCount(){
@@ -33,7 +34,7 @@ export default class Textarea extends Component {
       const target = this.props.values[i] ? this.props.values[i] : {};
       inputs.push(
         <li key={i}>
-          <textarea ref={"input-" + i} className="form-control" name="" data-id={target.id} cols="30" rows="10" onChange={(e) => this.onValueChange(e)} value={target.value||""}></textarea>
+          <textarea ref={"input-" + i} className="form-control" name="" data-id={target.id ? target.id : 'new_' + this.newId++} cols="30" rows="10" onChange={(e) => this.onValueChange(e)} value={target.value||""}></textarea>
         </li>
       );
     }

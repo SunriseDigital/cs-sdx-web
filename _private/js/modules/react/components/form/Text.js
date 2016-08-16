@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 export default class Text extends Component {
   constructor(props){
     super(props);
+      this.newId = 1;
   }
 
   getCount(){
@@ -33,7 +34,7 @@ export default class Text extends Component {
       const target = this.props.values[i] ? this.props.values[i] : {};
       inputs.push(
         <li key={i}>
-          <input ref={"input-" + i} data-id={target.id} className="form-control" type="text" onChange={(e) => this.onValueChange(e)} value={target.value || ""} />
+          <input ref={"input-" + i} data-id={target.id ? target.id : 'new_' + this.newId++} className="form-control" type="text" onChange={(e) => this.onValueChange(e)} value={target.value || ""} />
         </li>
       );
     }
