@@ -8,8 +8,34 @@ export default class Image extends Component {
     }
 
     this.newImageId = 1;
+
+    this.$wrapper = null;
   }
 
+  componentDidMount(){
+    this.$wrapper = $(this.refs.wrapper);
+    if(this.props.data.count > 1){
+      this.$wrapper
+        .sortable({
+  			  opacity: 0.8,
+          stop: (ev, ui) => {
+            const objValues = {};
+            this.props.values.forEach(image => objValues[image.id] = image);
+
+            const newValues = [];
+            this.$wrapper.find(".image-wrapper").each((key, elem) => {
+              const id = elem.getAttribute("data-id");
+              newValues.push(objValues[id]);
+            })
+
+            this.props.onValueChange({
+              code: this.props.data.code,
+              values: newValues,
+            });
+          }
+        })
+    }
+  }
 
   onLoadImage(e){
     const img = e.currentTarget;
@@ -64,10 +90,10 @@ export default class Image extends Component {
     return (
       <div>
         <input className="form-control" type="file" onChange={e => this.onChangeInput(e)} multiple />
-        <ul className="clearfix list-unstyled">
+        <ul ref="wrapper" className="clearfix list-unstyled">
           {this.props.values.map(image => {
             return (
-              <li key={image.id} className="pull-left">
+              <li key={image.id} data-id={image.id} className="pull-left image-wrapper">
                 <div>
                   <button data-id={image.id} onClick={e => this.onClickRemove(e)} className="btn btn-danger btn-sm" type="button">
                     <i className="fa fa-times" aria-hidden="true"></i>
