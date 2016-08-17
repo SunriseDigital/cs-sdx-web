@@ -8,7 +8,7 @@ export default class Date extends Component {
   render() {
     return (
       <div>
-        <input className="form-control" type="date"/>
+        <input className="form-control" type="text"/>
       </div>
     )
   }
