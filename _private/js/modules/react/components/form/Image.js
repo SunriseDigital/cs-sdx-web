@@ -7,8 +7,6 @@ export default class Image extends Component {
       naturalSizeList: {}
     }
 
-    this.newImageId = 1;
-
     this.$wrapper = null;
   }
 
@@ -72,7 +70,7 @@ export default class Image extends Component {
     const input = e.currentTarget;
     if (input.files && input.files.length > 0) {
         for (var i = 0; i < input.files.length; i++) {
-          const imageId = 'new_' + this.newImageId++;
+          const imageId = 'new_' + Image.newId++;
           const reader = new FileReader();
           const file = input.files[i];
           reader.onload = (e) => {
@@ -131,3 +129,6 @@ Image.defaultProps = {
   thumbWidth: "180px",
   onClickRemove: ()=>{},
 }
+
+//画像はPOST時のキー名がidになるので全体でユニークである必要があります。
+Image.newId = 1;
