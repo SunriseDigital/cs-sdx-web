@@ -128,6 +128,7 @@ Image.defaultProps = {
   thumbHeight: "180px",
   thumbWidth: "180px",
   onClickRemove: ()=>{},
+  values: [],
 }
 
 //画像はPOST時のキー名がidになるので全体でユニークである必要があります。
