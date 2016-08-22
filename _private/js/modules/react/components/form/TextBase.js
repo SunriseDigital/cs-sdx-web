@@ -22,7 +22,7 @@ export default class TextBase extends Component {
 
   onValueChange(e){
     const values = [];
-    this.$wrapper.find('.text-form').each((key, elem) => {
+    this.$wrapper.find('.text-element').each((key, elem) => {
       const $elem = $(elem)
       values.push({
         id: $elem.attr("data-id"),
@@ -105,7 +105,6 @@ export default class TextBase extends Component {
         </div>
       )
     }
-
 
     return (
       <div>

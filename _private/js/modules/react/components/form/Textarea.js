@@ -6,7 +6,7 @@ export default class Textarea extends TextBase {
     return (
       <li key={target.id}>
         <textarea
-          className="form-control textarea-element"
+          className="form-control text-element"
           name=""
           data-id={target.id}
           cols="30"
