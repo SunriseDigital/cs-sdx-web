@@ -6,7 +6,7 @@ export default class Text extends TextBase {
       <li key={target.id}>
         <input
           data-id={target.id}
-          className="form-control text-form"
+          className="form-control text-element"
           type="text"
           onChange={(e) => this.onValueChange(e)} value={target.value || ""}
         />
