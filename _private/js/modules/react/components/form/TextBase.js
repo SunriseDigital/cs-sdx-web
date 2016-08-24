@@ -105,7 +105,7 @@ export default class TextBase extends Component {
     let addButton = null;
     if(this.props.data.count > 1){
       addButton = (
-        <button className="btn btn-primary" type="button" onClick={() => this.onClickAdd()}>
+        <button className="btn btn-primary add" type="button" onClick={() => this.onClickAdd()}>
           <i className="fa fa-plus" aria-hidden="true"></i>&nbsp; 追加
         </button>
       )
