@@ -13,7 +13,7 @@ export default class TextBase extends Component {
       inputs: inputs
     }
 
-    this.$wrapper = null;
+    this.$list = null;
   }
 
   getCount(){
@@ -22,7 +22,7 @@ export default class TextBase extends Component {
 
   onValueChange(e){
     const values = [];
-    this.$wrapper.find('.text-element').each((key, elem) => {
+    this.$list.find('.text-element').each((key, elem) => {
       const $elem = $(elem)
       values.push({
         id: $elem.attr("data-id"),
@@ -41,13 +41,13 @@ export default class TextBase extends Component {
   }
 
   componentDidMount(){
-    this.$wrapper = $(this.refs.wrapper);
+    this.$list = $(this.refs.list);
     if(this.props.data.count == 1){
       if(this.props.values.length == 0){
         this.onClickAdd();
       }
     } else {
-      this.$wrapper
+      this.$list
         .sortable({
   			  opacity: 0.8,
           handle: '.handle',
@@ -89,36 +89,41 @@ export default class TextBase extends Component {
     }
   }
 
+  getDragHandle(target){
+    if(this.props.data.count == 1){
+      return null;
+    } else {
+      return (
+        <div className="handle">
+          <i className="fa fa-bars" aria-hidden="true"></i>
+        </div>
+      )
+    }
+  }
+
   render() {
     let addButton = null;
-    let dragHandle = null;
     if(this.props.data.count > 1){
       addButton = (
         <button className="btn btn-primary" type="button" onClick={() => this.onClickAdd()}>
           <i className="fa fa-plus" aria-hidden="true"></i>&nbsp; 追加
         </button>
       )
-
-      dragHandle = (
-        <div className="handle">
-          <i className="fa fa-bars" aria-hidden="true"></i>
-        </div>
-      )
     }
 
     return (
-      <div>
+      <div className="wrapper">
         {addButton}
-        <ul ref="wrapper" className="list-unstyled">
+        <ul ref="list" className="list-unstyled">
           {this.props.values.map(target => {
             return (
-              <div key={target.id} className="clearfix">
-                {dragHandle}
-                <div className="body">
+              <li key={target.id} className="clearfix">
+                {this.getDragHandle(target)}
+                <div className="element">
                   {this.createFormTag(target)}
                 </div>
                 {this.getDeleteButton(target)}
-              </div>
+              </li>
             )
           })}
         </ul>

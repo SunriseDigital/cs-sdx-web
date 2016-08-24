@@ -86,18 +86,18 @@ export default class Image extends Component {
 
   render() {
     return (
-      <div>
+      <div className="wrapper">
         <input className="form-control" type="file" onChange={e => this.onChangeInput(e)} multiple />
         <ul ref="wrapper" className="clearfix list-unstyled">
           {this.props.values.map(image => {
             return (
               <li key={image.id} data-id={image.id} className="pull-left image-wrapper">
-                <div>
-                  <button data-id={image.id} onClick={e => this.onClickRemove(e)} className="btn btn-danger btn-sm" type="button">
+                <div className="header">
+                  <button data-id={image.id} onClick={e => this.onClickRemove(e)} className="btn btn-danger btn-sm remove" type="button">
                     <i className="fa fa-times" aria-hidden="true"></i>
                   </button>
                 </div>
-                <div style={{
+                <div className="image" style={{
                   height: this.props.thumbHeight,
                   width: this.props.thumbWidth,
                 }}>

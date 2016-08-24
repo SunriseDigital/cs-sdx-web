@@ -28,14 +28,14 @@ export default class DateElement extends Component {
     }
 
     return (
-      <div>
+      <div className="wrapper">
         <input
           className="form-control date-element"
           type="text"
           onChange={(e) => this.onValueChange(e)}
           value={value}
         />
-        <button type="button" className="btn btn-default" onClick={e => this.onClickCurrentDate()}>
+        <button type="button" className="btn btn-default current-datetime" onClick={e => this.onClickCurrentDate()}>
           現在日時
         </button>
       </div>
