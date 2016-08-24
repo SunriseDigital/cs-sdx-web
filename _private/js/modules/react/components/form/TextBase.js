@@ -114,10 +114,10 @@ export default class TextBase extends Component {
     return (
       <div className="wrapper">
         {addButton}
-        <ul ref="list" className="list-unstyled">
+        <ul ref="list" className="list-unstyled list">
           {this.props.values.map(target => {
             return (
-              <li key={target.id} className="clearfix">
+              <li key={target.id} className="clearfix item">
                 {this.getDragHandle(target)}
                 <div className="element">
                   {this.createFormTag(target)}
