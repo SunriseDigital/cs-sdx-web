@@ -28,7 +28,7 @@ export default class DateElement extends Component {
     }
 
     return (
-      <div className="wrapper item">
+      <div className="wrapper">
         <input
           className="form-control date-element"
           type="text"
