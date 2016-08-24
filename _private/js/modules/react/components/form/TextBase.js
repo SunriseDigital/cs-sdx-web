@@ -50,7 +50,7 @@ export default class TextBase extends Component {
       this.$list
         .sortable({
   			  opacity: 0.8,
-          handle: '.handle',
+          handle: '.drag-handle',
           stop: (ev, ui) => {
             this.onValueChange();
           }
@@ -94,7 +94,7 @@ export default class TextBase extends Component {
       return null;
     } else {
       return (
-        <div className="handle">
+        <div className="drag-handle">
           <i className="fa fa-bars" aria-hidden="true"></i>
         </div>
       )

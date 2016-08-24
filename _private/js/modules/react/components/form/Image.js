@@ -16,6 +16,7 @@ export default class Image extends Component {
       this.$wrapper
         .sortable({
   			  opacity: 0.8,
+          handle: '.drag-handle',
           stop: (ev, ui) => {
             const objValues = {};
             this.props.values.forEach(image => objValues[image.id] = image);
@@ -102,6 +103,7 @@ export default class Image extends Component {
                   width: this.props.thumbWidth,
                 }}>
                   <img
+                    className="drag-handle"
                     onLoad={e => this.onLoadImage(e)}
                     src={image.path} data-id={image.id}
                     style={{
