@@ -46,8 +46,9 @@ export default class Dialog extends Component {
 
     if(this.props.position == 'window-center'){
       const windowPos = this.getWindowPosition();
-      panelStyle.top = (windowPos.height / 2) - (this.props.size.height / 2) + windowPos.top;
-      panelStyle.left = (windowPos.width / 2) - (this.props.size.width / 2) + windowPos.left;
+      //ヘッダーが画面からはみ出さないようにセンターを求める。
+      panelStyle.top =  Math.max((windowPos.height / 2) - (this.props.size.height / 2) + windowPos.top, windowPos.top)
+      panelStyle.left = Math.max((windowPos.width / 2) - (this.props.size.width / 2) + windowPos.left, windowPos.left)
     }
 
     // console.log();
