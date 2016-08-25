@@ -30,6 +30,7 @@
     "gulp-uglify": "^1.5.3",
     "gulp-util": "^3.0.7",
     "node-notifier": "^4.5.0",
+    "react-draggable": "^2.2.1",
     "webpack": "^1.12.13"
   }
 }
