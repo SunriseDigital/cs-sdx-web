@@ -57,15 +57,8 @@ export default class Dialog extends Component {
       <Draggable
         handle=".panel-heading"
       >
-        <div className="panel panel-default" style={panelStyle}>
-          <div className="panel-heading clearfix">
-            <button type="button" className="btn btn-danger pull-right" onClick={(e) => this.hide()}>
-              <i className="fa fa-times"></i>
-            </button>
-          </div>
-          <div className="panel-body">
-            {this.props.children}
-          </div>
+        <div style={panelStyle}>
+          {this.props.children}
         </div>
       </Draggable>
     )
