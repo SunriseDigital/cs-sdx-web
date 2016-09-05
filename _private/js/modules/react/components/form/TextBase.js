@@ -111,9 +111,14 @@ export default class TextBase extends Component {
       )
     }
 
+    const descriptions = this.props.data.description || [];
+
     return (
       <div className="wrapper">
         {addButton}
+        {descriptions.map((value, key) => {
+          return <p key={key} className="description">{value}</p>
+        })}
         <ul ref="list" className="list-unstyled list">
           {this.props.values.map(target => {
             return (

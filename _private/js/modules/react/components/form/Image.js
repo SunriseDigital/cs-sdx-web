@@ -86,9 +86,13 @@ export default class Image extends Component {
   }
 
   render() {
+    const descriptions = this.props.data.description || [];
     return (
       <div className="wrapper">
         <input className="form-control" type="file" onChange={e => this.onChangeInput(e)} multiple />
+        {descriptions.map((value, key) => {
+          return <p key={key} className="description">{value}</p>
+        })}
         <ul ref="wrapper" className="clearfix list-unstyled list">
           {this.props.values.map(image => {
             return (
