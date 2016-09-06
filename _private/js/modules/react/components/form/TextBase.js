@@ -16,7 +16,7 @@ export default class TextBase extends Component {
     this.$list = null;
   }
 
-  getCount(){
+  getMaxCount(){
     return this.props.data.count === undefined ? 1 : this.props.data.count;
   }
 
@@ -42,7 +42,7 @@ export default class TextBase extends Component {
 
   componentDidMount(){
     this.$list = $(this.refs.list);
-    if(this.props.data.count == 1){
+    if(this.getMaxCount() == 1){
       if(this.props.values.length == 0){
         this.onClickAdd();
       }
@@ -76,7 +76,7 @@ export default class TextBase extends Component {
   }
 
   getDeleteButton(target){
-    if(this.props.data.count == 1){
+    if(this.getMaxCount() == 1){
       return null;
     } else {
       return (
@@ -90,7 +90,7 @@ export default class TextBase extends Component {
   }
 
   getDragHandle(target){
-    if(this.props.data.count == 1){
+    if(this.getMaxCount() == 1){
       return null;
     } else {
       return (
@@ -103,9 +103,12 @@ export default class TextBase extends Component {
 
   render() {
     let addButton = null;
-    if(this.props.data.count > 1){
+    if(this.getMaxCount() > 1){
+      const buttonProps = {
+        disabled: this.getMaxCount() <= this.props.values.length
+      }
       addButton = (
-        <button className="btn btn-primary add" type="button" onClick={() => this.onClickAdd()}>
+        <button className="btn btn-primary add" type="button" onClick={() => this.onClickAdd()} {...buttonProps}>
           <i className="fa fa-plus" aria-hidden="true"></i>&nbsp; 追加
         </button>
       )

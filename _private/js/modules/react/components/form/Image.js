@@ -10,9 +10,17 @@ export default class Image extends Component {
     this.$wrapper = null;
   }
 
+  getMaxCount(){
+    if(this.props.data.count == undefined){
+      return 1;
+    }
+
+    return this.props.data.count;
+  }
+
   componentDidMount(){
     this.$wrapper = $(this.refs.wrapper);
-    if(this.props.data.count > 1){
+    if(this.getMaxCount() > 1){
       this.$wrapper
         .sortable({
   			  opacity: 0.8,
@@ -69,8 +77,11 @@ export default class Image extends Component {
 
   onChangeInput(e){
     const input = e.currentTarget;
+    let count = this.props.values.length;
+    let overMaxCount = 0;
     if (input.files && input.files.length > 0) {
-        for (var i = 0; i < input.files.length; i++) {
+      for (var i = 0; i < input.files.length; i++) {
+        if(count < this.getMaxCount()){
           const imageId = 'new_' + Image.newId++;
           const reader = new FileReader();
           const file = input.files[i];
@@ -81,15 +92,39 @@ export default class Image extends Component {
             });
           }
           reader.readAsDataURL(file)
+          count++;
+        } else {
+          ++overMaxCount;
         }
+      }
+    }
+
+    if(overMaxCount > 0){
+      alert("画像は" + this.getMaxCount() + "枚まで登録可能です。" + overMaxCount + "枚の画像が破棄されました。");
+    }
+
+    //クリアしておかないとonChaangeが呼ばれない。
+    input.value = "";
+  }
+
+  getFileName(image){
+    if(image.file){
+      return image.file.name;
+    } else {
+      const paths = image.path.split('/');
+      return paths[paths.length - 1];
     }
   }
 
   render() {
     const descriptions = this.props.data.description || [];
+    const inputFileProps = {
+      multiple: this.getMaxCount() > 1,
+      disabled: this.getMaxCount() <= this.props.values.length
+    }
     return (
       <div className="wrapper">
-        <input className="form-control" type="file" onChange={e => this.onChangeInput(e)} multiple />
+        <input className="form-control" type="file" onChange={e => this.onChangeInput(e)}  {...inputFileProps} />
         {descriptions.map((value, key) => {
           return <p key={key} className="description">{value}</p>
         })}
@@ -121,6 +156,7 @@ export default class Image extends Component {
                   />
                 </div>
                 {this.displayNaturalSize(image)}
+                <div>{this.getFileName(image)}</div>
               </li>
             )
           })}
