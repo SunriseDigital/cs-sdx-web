@@ -56,6 +56,7 @@ export default class Dialog extends Component {
     return (
       <Draggable
         handle=".panel-heading"
+        defaultClassName={this.props.defaultClassName}
       >
         <div style={panelStyle}>
           {this.props.children}
