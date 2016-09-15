@@ -60,7 +60,7 @@ export default class TextBase extends Component {
 
   onClickAdd(){
     const values = [...this.props.values];
-    values.push({id: 'new_' + this.newId++, value: ""})
+    values.push({id: 'new_' + this.newId++, value: this.props.data.select ? this.props.data.select[0].value : ""})
     this.props.onValueChange({
       values: values,
       code: this.props.data.code
