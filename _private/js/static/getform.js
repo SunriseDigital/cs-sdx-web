@@ -3,8 +3,9 @@ $(function () {
     e.preventDefault();
     var wrapper = $(this).closest(".sdx-getform");
     var action = wrapper.attr('data-action');
+    if(!action) action = location.pathname;
     action += action.indexOf("?") === -1 ? '?' : '&';
-    location.href = (action ? action : location.pathname + '?') + $(this).closest(".sdx-getform").find("input, textarea, select").serialize();
+    location.href = action + $(this).closest(".sdx-getform").find("input, textarea, select").serialize();
     return false;
   });
 
