@@ -37,7 +37,7 @@ $(function () {
 
     if (execute) {
       $btn.closest(".sdx-getform")
-        .find("input:not([type=submit], [type=button]), textarea, select")
+        .find("input:not([type=submit], [type=button], [type=reset], [type=image]), textarea, select")
         .val("");
     }
 
