@@ -11,7 +11,9 @@ $(function(){
   function changeSelfWithChildrenState($elem){
     //チェックが入る前に親のチェックが走ってしまうのでsetTimeout
     setTimeout(function(){
-        $elem.prop("checked", $.makeArray($elem.data('$childCheckboxies')).every(child => $(child).prop("checked")));
+        $elem.prop("checked", $.makeArray($elem.data('$childCheckboxies')).every(function(child){
+          return $(child).prop("checked")
+        }));
     }, 0);
   }
 
