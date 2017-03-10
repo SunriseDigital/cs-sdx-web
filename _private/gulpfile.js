@@ -84,7 +84,13 @@ gulp.task('copy-static', function(){
     .pipe(rename({ suffix: '.min' }))
     .pipe(uglify({
       preserveComments: 'license'
-    }).on('error', gutil.log))
+    }).on('error', function(err){
+      notifier.notify({
+        title: 'copy-static',
+        message: err.cause.message
+      });
+      console.log(err);
+    }))
     .pipe(gulp.dest('../js/static'))
 });
 
@@ -118,7 +124,13 @@ gulp.task('package-js-min', function(){
     .pipe(rename({ suffix: '.min' }))
     .pipe(uglify({
         preserveComments: 'license'
-      }).on('error', gutil.log)
+      }).on('error', function(err){
+        notifier.notify({
+          title: 'copy-static',
+          message: err.cause.message
+        });
+        console.log(err);
+      })
     )
     .pipe(gulp.dest(function(file) {
       return file.base;
