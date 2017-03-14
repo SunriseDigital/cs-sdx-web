@@ -87,7 +87,7 @@ gulp.task('copy-static', function(){
     }).on('error', function(err){
       notifier.notify({
         title: 'copy-static',
-        message: err.cause.message
+        message: err.message
       });
       console.log(err);
     }))

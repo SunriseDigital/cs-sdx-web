@@ -5,13 +5,28 @@
       var $submit = $wrapper.find('.sdx-ajax-form-submit');
       var $elements = $wrapper.find('.sdx-ajax-form-elem');
       var ajaxUrl =  $wrapper.attr("data-sdx-ajax-form-url");
+
+      function sendRequest(url){
+        var ajaxOption = {
+          method: 'GET'
+        }
+        if(url){
+          ajaxOption.url = url;
+        } else {
+          ajaxOption.url = ajaxUrl;
+          ajaxOption.data = $elements.serializeArray();
+        }
+
+        options.jqXHR($.ajax(ajaxOption), $wrapper, sendRequest);
+      }
+
+      if(!options.preventInitalRequest){
+        sendRequest();
+      }
+
       $submit.on('click', function(e){
         e.preventDefault();
-        options.jqXHR($.ajax({
-          url: ajaxUrl,
-          data: $elements.serializeArray(),
-          method: 'POST'
-        }));
+        sendRequest();
         return false;
       });
     });
