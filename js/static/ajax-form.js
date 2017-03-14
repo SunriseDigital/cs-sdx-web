@@ -9,7 +9,8 @@
         e.preventDefault();
         options.jqXHR($.ajax({
           url: ajaxUrl,
-          data: $elements.serializeArray()
+          data: $elements.serializeArray(),
+          method: 'POST'
         }));
         return false;
       });
