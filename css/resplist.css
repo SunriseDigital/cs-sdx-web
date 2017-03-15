@@ -52,6 +52,7 @@
 ul.resplist {
   list-style: none;
   padding: 0;
+  border-collapse: separate;
 }
 
 .resplist-striped .resplist-row:nth-child(odd) {
