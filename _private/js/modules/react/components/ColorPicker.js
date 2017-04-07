@@ -12,7 +12,7 @@ export default class ColorPicker extends Component {
     });
   }
 
-  componentWillUpdate() {
+  componentWillReceiveProps() {
     $(".color-picker").find("#" + this.props.id).spectrum({
       color : this.props.color
     });
