@@ -6,19 +6,26 @@ export default class ColorPicker extends Component {
   }
 
   componentDidMount(){
-    console.log(this.props.color)
-    $(".color-picker").find("#" + this.props.id).spectrum({
-      color: this.props.color,
+    const self = this;
+
+    $(".color-picker").find("#" + self.props.id).spectrum({
+      color: self.props.color,
+      change: function(color){ 
+        self.props.onChangeColor(color.toHexString())
+      }
     });
   }
 
-  componentWillReceiveProps() {
-    $(".color-picker").find("#" + this.props.id).spectrum({
-      color : this.props.color
-    });
+  componentWillReceiveProps(nextProps) {
+    if(this.props.color != nextProps.color)
+    {
+      $(".color-picker").find("#" + this.props.id).spectrum({
+        color: nextProps.color
+      });
+    }
   }
 
-  render() {    
+  render() {
     return (
       <div className="color-picker">
         <input type="text" id={this.props.id} />
