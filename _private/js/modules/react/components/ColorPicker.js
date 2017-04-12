@@ -5,23 +5,24 @@ export default class ColorPicker extends Component {
     super(props);
   }
 
-  componentDidMount(){
-    const self = this;
-
-    $(".color-picker").find("#" + self.props.id).spectrum({
-      color: self.props.color,
+  initializeColorPicker(props)
+  {
+    $(".color-picker").find("#" + props.id).spectrum({
+      color: props.color,
       change: function(color){ 
-        self.props.onChangeColor(color.toHexString())
+        props.onChangeColor(color.toHexString())
       }
     });
+  }
+
+  componentDidMount(){
+    this.initializeColorPicker(this.props)
   }
 
   componentWillReceiveProps(nextProps) {
     if(this.props.color != nextProps.color)
     {
-      $(".color-picker").find("#" + this.props.id).spectrum({
-        color: nextProps.color
-      });
+      this.initializeColorPicker(nextProps);
     }
   }
 
