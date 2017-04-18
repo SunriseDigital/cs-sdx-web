@@ -6,8 +6,10 @@ export default class ColorPicker extends Component {
   }
 
   componentDidMount() {
+    this.$colorPicker = $(this.refs.colorPicker);
+
     const self = this;
-    $(this.refs.colorPicker).spectrum({
+    this.$colorPicker.spectrum({
       color: self.props.color,
       change: function (color) {
         self.props.onChangeColor(color.toHexString())
@@ -15,10 +17,16 @@ export default class ColorPicker extends Component {
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.color != nextProps.color) {
+      this.$colorPicker.spectrum("set", nextProps.color);
+    }
+  }
+
   render() {
     return (
       <div className="color-picker">
-        <input type="text" value={this.props.color} ref="colorPicker" />
+        <input type="text" ref="colorPicker" />
       </div>
     );
   }
