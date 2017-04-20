@@ -8,11 +8,10 @@ export default class ColorPicker extends Component {
   componentDidMount() {
     this.$colorPicker = $(this.refs.colorPicker);
 
-    const self = this;
     this.$colorPicker.spectrum({
-      color: self.props.color,
+      color: this.props.color,
       change: function (color) {
-        self.props.onChangeColor(color.toHexString())
+        this.props.onChangeColor(color.toHexString())
       }
     });
   }
