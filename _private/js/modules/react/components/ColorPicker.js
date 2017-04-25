@@ -10,7 +10,7 @@ export default class ColorPicker extends Component {
 
     this.$colorPicker.spectrum({
       color: this.props.color,
-      change: function (color) {
+      change: (color) => {
         this.props.onChangeColor(color.toHexString())
       }
     });
