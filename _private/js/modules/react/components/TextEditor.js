@@ -9,15 +9,25 @@ export default class TextEditor extends Component {
 
   render() {
     if (this.props.multiline) {
-      // <textarea>
       return (
-        <textarea></textarea>
+        <textarea
+          name={this.props.name}
+          rows={this.props.rows}
+          cols={this.props.cols}
+          onChange={(e) => this.props.onChange(e)}
+        >
+          {this.props.value}
+        </textarea>
       )
-
     } else {
-      // <input type="text">
       return (
-        <input type="text" />
+        <input
+          type="text"
+          name={this.props.name}
+          value={this.props.value}
+          placeholder={this.props.placeholder}
+          onChange={(e) => this.props.onChange(e)}
+        />
       )
     }
   }
