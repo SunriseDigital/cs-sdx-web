@@ -4,41 +4,44 @@ export default class TextEditor extends Component {
   constructor(props){
     super(props);
     this.state = {
-      keyDownCode: 0,
-      keepInputIme: false,
-      keepShiftKey: false,
-      keepCtrlKey: false
+      keyCode: {},
+      keepInputIme: false
     }
   }
 
   onKeyDown(e){
+    let keepInputIme = false;
+    // keyDown時のkeyCode
+    // Firefox[0],IE,Chrome,Safari[229]の時はIME入力中
+    if (e.keyCode == 0 || e.keyCode == 229) {
+      keepInputIme = true;
+    }
     this.setState({
-      keyDownCode: e.keyCode,
-      keepInputIme: false,
-      keepShiftKey: (e.keyCode == 16),
-      keepCtrlKey: (e.keyCode == 17)      
+      keyCode: {
+        down: (this.state.keyCode.down) ? this.state.keyCode.down.concat(e.keyCode) : [e.keyCode]
+      },
+      keepInputIme: keepInputIme
     });
   }
 
   onKeyUp(e){
-    // keyDown時のkeyCodeが[229]の時はIME入力中
-    if (this.state.keyDownCode == 229) {
-      this.setState({keepInputIme: true});
+    if (this.state.keyCode.down.includes(e.keyCode) && e.keyCode == 13) {
+      let data = this.state.keyCode;
+      // IME入力中はfalseを返す
+      if (this.state.keepInputIme) {
+        data = false;
+      }
+      this.props.onPressEnterKey(data);
     }
-
-    if (this.state.keyDownCode == e.keyCode && e.keyCode == 13) {
-      let keyData = {};
-      keyData.shift = this.state.keepShiftKey;
-      keyData.ctrl = this.state.keepCtrlKey;
-      this.props.onPressEnterKey(keyData);
-    }
+    this.setState({
+      keyCode: {
+        down: []
+      },
+      keepInputIme: false
+    })
   }
 
   onChange(e){
-    // IME入力中は変更を行わないようにする
-    if (this.state.keepInputIme) {
-      return false;
-    }
     this.props.onChange(e.target.value);
   }
 
