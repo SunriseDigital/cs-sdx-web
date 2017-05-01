@@ -52,6 +52,7 @@ export default class TextEditor extends Component {
           name={this.props.name}
           rows={this.props.rows}
           cols={this.props.cols}
+          placeholder={this.props.placeholder}
           onChange={(e) => this.onChange(e)}
           onKeyDown={(e) => this.onKeyDown(e)}
           onKeyUp={(e) => this.onKeyUp(e)}
