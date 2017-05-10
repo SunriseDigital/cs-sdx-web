@@ -4,23 +4,21 @@ export default class TextEditor extends Component {
   constructor(props){
     super(props);
     this.state = {
-      keyCode: {},
-      keepInputIme: false
+      keyCode: {}
     }
+    this.keepInputIme = false;
   }
 
   onKeyDown(e){
-    let keepInputIme = false;
     // keyDown時のkeyCode
     // Firefox[0],IE,Chrome,Safari[229]の時はIME入力中
     if (e.keyCode == 0 || e.keyCode == 229) {
-      keepInputIme = true;
+      this.keepInputIme = true;
     }
     this.setState({
       keyCode: {
         down: (this.state.keyCode.down) ? this.state.keyCode.down.concat(e.keyCode) : [e.keyCode]
-      },
-      keepInputIme: keepInputIme
+      }
     });
   }
 
@@ -28,7 +26,7 @@ export default class TextEditor extends Component {
     if (this.state.keyCode.down.includes(e.keyCode) && e.keyCode == 13) {
       let data = this.state.keyCode;
       // IME入力中はfalseを返す
-      if (this.state.keepInputIme) {
+      if (this.keepInputIme) {
         data = false;
       }
       this.props.onPressEnterKey(data);
@@ -36,9 +34,9 @@ export default class TextEditor extends Component {
     this.setState({
       keyCode: {
         down: []
-      },
-      keepInputIme: false
-    })
+      }
+    });
+    this.keepInputIme = false;
   }
 
   onChange(e){
