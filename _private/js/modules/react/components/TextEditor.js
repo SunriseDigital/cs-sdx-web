@@ -3,9 +3,6 @@ import React, { Component } from 'react'
 export default class TextEditor extends Component {
   constructor(props){
     super(props);
-    this.state = {
-      keyCode: {}
-    }
     this.keepInputIme = false;
   }
 
@@ -15,27 +12,14 @@ export default class TextEditor extends Component {
     if (e.keyCode == 0 || e.keyCode == 229) {
       this.keepInputIme = true;
     }
-    this.setState({
-      keyCode: {
-        down: (this.state.keyCode.down) ? this.state.keyCode.down.concat(e.keyCode) : [e.keyCode]
-      }
-    });
   }
 
   onKeyUp(e){
-    if (this.state.keyCode.down.includes(e.keyCode) && e.keyCode == 13) {
-      let data = this.state.keyCode;
-      // IME入力中はfalseを返す
-      if (this.keepInputIme) {
-        data = false;
+    if (e.which == 13 && e.keyCode == 13) {
+      if (!this.keepInputIme) {
+        this.props.onPressEnterKey(e);
       }
-      this.props.onPressEnterKey(data);
     }
-    this.setState({
-      keyCode: {
-        down: []
-      }
-    });
     this.keepInputIme = false;
   }
 
