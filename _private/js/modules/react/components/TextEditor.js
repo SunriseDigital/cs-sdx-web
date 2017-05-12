@@ -9,7 +9,7 @@ export default class TextEditor extends Component {
   onKeyDown(e){
     // keyDown時のkeyCode
     // Firefox[0],IE,Chrome,Safari[229]の時はIME入力中
-    if (e.keyCode == 0 || e.keyCode == 229) {
+    if (e.keyCode === 0 || e.keyCode === 229) {
       this.keepInputIme = true;
     }
   }
