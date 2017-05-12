@@ -130,7 +130,7 @@ export default class Image extends Component {
         {(() => {
           if(React.Children.count(this.props.children) > 0) {
             return (
-              <div onClick={() => this.onClickOriginalButton()}>
+              <div className="upload-trigger-wrapper" onClick={() => this.onClickOriginalButton()}>
                 <input style={{display: 'none'}} className="form-control" type="file" ref="fileInput" onChange={e => this.onChangeInput(e)}  {...inputFileProps} />
                 {this.props.children}
               </div>
