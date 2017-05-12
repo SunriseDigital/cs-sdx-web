@@ -15,10 +15,8 @@ export default class TextEditor extends Component {
   }
 
   onKeyUp(e){
-    if (e.which == 13 && e.keyCode == 13) {
-      if (!this.keepInputIme) {
-        this.props.onPressEnterKey(e);
-      }
+    if (e.key === "Enter") {
+      this.props.onPressEnterKey(e);
     }
     this.keepInputIme = false;
   }
