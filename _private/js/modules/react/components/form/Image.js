@@ -107,7 +107,7 @@ export default class Image extends Component {
   }
 
   onClickOriginalButton() {
-    ReactDOM.findDOMNode(this.refs.fileInput).click();
+    this.refs.fileInput.click();
   }
 
   getFileName(image){
