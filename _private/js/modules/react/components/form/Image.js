@@ -6,7 +6,6 @@ export default class Image extends Component {
     this.state = {
       naturalSizeList: {}
     }
-
     this.$wrapper = null;
   }
 
@@ -107,6 +106,10 @@ export default class Image extends Component {
     input.value = "";
   }
 
+  onClickOriginalButton() {
+    this.refs.fileInput.click();
+  }
+
   getFileName(image){
     if(image.file){
       return image.file.name;
@@ -124,7 +127,21 @@ export default class Image extends Component {
     }
     return (
       <div className="wrapper">
-        <input className="form-control" type="file" onChange={e => this.onChangeInput(e)}  {...inputFileProps} />
+        {(() => {
+          if(React.Children.count(this.props.children) > 0) {
+            return (
+              <div className="upload-trigger-wrapper" onClick={() => this.onClickOriginalButton()}>
+                <input style={{display: 'none'}} className="form-control" type="file" ref="fileInput" onChange={e => this.onChangeInput(e)}  {...inputFileProps} />
+                {this.props.children}
+              </div>
+            )
+          } else {
+            return (
+              <input className="form-control" type="file" onChange={e => this.onChangeInput(e)}  {...inputFileProps} />
+            )
+          }
+        })()}
+
         {descriptions.map((value, key) => {
           return <p key={key} className="description">{value}</p>
         })}
