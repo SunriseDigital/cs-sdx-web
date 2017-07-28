@@ -1,2 +1,5 @@
 _private/node_modules/*
 _private/.sass-cache/*
+
+_private/**/node_modules/*
+_private/**/.sass-cache/*
