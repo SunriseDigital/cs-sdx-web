@@ -2,28 +2,28 @@ export default class Panel
 {
   constructor(carousel, $elem, parentPanel) {
     this.carousel = carousel
-    this.$elem = $elem
+    this.$element = $elem
 
-    this.$buttonsWrapper = this.$elem.find('> .sdx-carousel-btnWrapper')
+    this.$buttonsWrapper = this.$element.find('> .sdx-carousel-btnWrapper')
     
     this.parentPanel = parentPanel
     if(this.parentPanel){
-      this.$elem.css({
+      this.$element.css({
         position: 'absolute',
         width: '100%'
       })
-      this.$button = this.$elem.find('> .sdx-carousel-btn')
-      this.parentPanel.addButton(this.$button)
+      this.$button = this.$element.find('> .sdx-carousel-btn')
+      this.parentPanel._addButton(this.$button)
       this.$button.on('click', () => {
         this.display()
         if(this.carousel.isRunning){
-          this.carousel.next()
+          this.carousel._next()
         }
       })
     }
 
     this.childPanels = []
-    this.$elem.find('> .sdx-carousel-panel').each((key, elem) => {
+    this.$element.find('> .sdx-carousel-panel').each((key, elem) => {
       this.childPanels.push(new Panel(carousel, $(elem), this))
     })
   }
@@ -50,7 +50,7 @@ export default class Panel
     return parents[parents.length - 1]
   }
 
-  addButton($button){
+  _addButton($button){
     this.$buttonsWrapper.append($button)
   }
 
@@ -69,26 +69,26 @@ export default class Panel
     }
   }
 
-  show(){
-    this.$elem.css({zIndex: 1})
-    this.$elem.addClass('sdx-carousel-current')
+  _show(){
+    this.$element.css({zIndex: 1})
+    this.$element.addClass('sdx-carousel-current')
     if(this.$button){
       this.$button.addClass('sdx-carousel-current')
     }
 
     if(this.isLeaf){
-      this.carousel.currentLeaf = this;
+      this.carousel._currentLeaf = this;
     }
   }
 
   display(){
-    const $currents = this.rootPanel.$elem.find('.sdx-carousel-current')
+    const $currents = this.rootPanel.$element.find('.sdx-carousel-current')
     $currents.filter('.sdx-carousel-panel').css({zIndex: ''})
     $currents.removeClass('sdx-carousel-current')
 
-    this.show()
-    this.ascend(panel => panel.show())
-    this.descend(0, panel => panel.show())
+    this._show()
+    this.ascend(panel => panel._show())
+    this.descend(0, panel => panel._show())
   }
 
   assembleLeafs(leafs){
