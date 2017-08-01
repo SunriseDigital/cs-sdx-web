@@ -26,27 +26,23 @@ export default class Panel
     this.$elem.find('> .sdx-carousel-panel').each((key, elem) => {
       this.childPanels.push(new Panel(carousel, $(elem), this))
     })
-
-    this.$display = $elem.find('> .sdx-carousel-display');
   }
 
   get isLeaf(){
-    return this.$display.length > 0
+    return this.childPanels.length === 0
   }
 
-  get parents(){
-    const parents = []
+  assembleDirectParents(parents){
     let parent = this.parentPanel
     while(parent){
       parents.push(parent)
       parent = parent.parentPanel
     }
-
-    return parents
   }
 
   get rootPanel(){
-    const parents = this.parents
+    const parents = []
+    this.assembleDirectParents(parents)
     if(parents.length === 0){
       return this
     }
@@ -59,7 +55,9 @@ export default class Panel
   }
 
   ascend(callback){
-    $.each(this.parents, (key, panel) => {
+    const parents = []
+    this.assembleDirectParents(parents)
+    $.each(parents, (key, panel) => {
       callback(panel)
     })
   }
