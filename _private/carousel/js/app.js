@@ -5,6 +5,6 @@ $(() => {
     const $elem = $(this)
     const carousel = new Carousel($elem)
     carousel.height = $elem.attr('data-height')
-    carousel.run();
+    carousel.run(1000);
   })
 })
