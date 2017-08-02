@@ -22,6 +22,10 @@ export default class Panel
         this.carousel._clickingButton = true
         //自分を表示
         this.display()
+        //スライドショーが動いていたら
+        if(this.carousel.isRunning){
+          this.carousel._next()
+        }
         //mouseleaveの誤発火防止用フラグをOFF
         setTimeout(() => {
           this.carousel._clickingButton = false

@@ -31,15 +31,18 @@ export default class Carousel
     })
 
     //マウスオーバー時は止める
-    this.$element.on('mouseenter', () => {
-      this.pause()
-    })
+    //タッチ時にtouchstart>touchend>mouseenterという謎な順で発生し変な挙動になるので、タッチデバイスではやらない。
+    if(!("ontouchstart" in document.documentElement)){
+      this.$element.on('mouseenter', () => {
+        this.pause()
+      })
 
-    this.$element.on('mouseleave', () => {
-      if(!this._clickingButton){
-        this.restart()
-      }
-    })
+      this.$element.on('mouseleave', () => {
+        if(!this._clickingButton){
+          this.restart()
+        }
+      })
+    }
   }
 
   /**
