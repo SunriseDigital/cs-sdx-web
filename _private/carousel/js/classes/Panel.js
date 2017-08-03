@@ -17,7 +17,8 @@ export default class Panel
       this.parentPanel.$buttonsWrapper.append(this.$button)
 
       //ボタンのクリックイベント登録。
-      this.$button.on('click', () => {
+      this.$button.on('click', (e) => {
+        e.preventDefault()
         //mouseleaveの誤発火防止用フラグをON
         this.carousel._clickingButton = true
         //自分を表示
@@ -30,6 +31,8 @@ export default class Panel
         setTimeout(() => {
           this.carousel._clickingButton = false
         }, 0)
+
+        return false
       })
     }
 
