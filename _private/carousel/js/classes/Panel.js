@@ -7,10 +7,9 @@ export default class Panel
     this.$element.on('transitionend', (e) => {
       this.$element.removeClass('sdx-carousel-ready')
       this.$element.removeClass('sdx-carousel-start')
-      this._clearBefore();
+      this._clearBeforePanels();
     })
 
-    // this.showing = false
     this._beforePanels = []
 
     this.$buttonsWrapper = this.$element.find('> .sdx-carousel-btnWrapper')
@@ -82,10 +81,15 @@ export default class Panel
 
   //直系の親パネルに対して順にメソッドを実行する。
   ascend(callback){
+    var parents = []
     let parent = this.parentPanel
     while(parent){
-      callback(parent)
+      parents.push(parent)
       parent = parent.parentPanel
+    }
+
+    for (var i = parents.length - 1; i >= 0; i--) {
+      callback(parents[i])      
     }
   }
 
@@ -107,17 +111,18 @@ export default class Panel
   }
 
   _startShow(callback){
-    // this.showing = true
-    this.$element.addClass('sdx-carousel-ready')
     this._show()
     this.descend(0, panel => panel._show())
 
+    this.$element.addClass('sdx-carousel-ready')
+    
+
     setTimeout(() => {
       this.$element.addClass('sdx-carousel-start')
-    }, 80)
+    }, 100)
   }
 
-  _clearBefore(){
+  _clearBeforePanels(){
     $.each(this._beforePanels, (key, panel) => {
       if(this.carousel._currentPanels.indexOf(panel) === -1){
         panel.$element.removeClass('sdx-carousel-current')
@@ -133,20 +138,31 @@ export default class Panel
       return
     }
     
-    this._beforePanels = this.carousel._currentPanels
-    this.carousel._currentPanels = []
-
-    //各パネルのエレメントを表示状態へ
-    this.ascend(panel => panel._show())
-
-    if(this.isRoot){
-      this._show()
-      this.descend(0, panel => panel._show())
-      this._clearBefore()
+    //既に表示中で子供がいたら子供を表示。
+    if(this.carousel._currentPanels.indexOf(this) >= 0 && this.childPanels[0]){
+      this.childPanels[0].display()
     } else {
-      this._startShow(() => {
-        this._clearBefore()
-      })
+      const parents = []
+      this.ascend(p => parents.push(p))
+      
+      //クラスを外すので直前のパネルをとっておく。
+      this._beforePanels = this.carousel._currentPanels
+      //今回表示されるパネルを階層で保持。
+      this.carousel._currentPanels = []
+
+      //各パネルのエレメントを表示状態へ
+      $.each(parents, (key, panel) => panel._show())
+
+      if(this.isRoot){
+        this._show()
+        this.descend(0, panel => panel._show())
+        this._clearBeforePanels()
+      } else {
+        // console.log('anim')
+        this._startShow(() => {
+          this._clearBeforePanels()
+        })
+      }
     }
   }
 }

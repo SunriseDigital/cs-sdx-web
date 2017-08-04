@@ -19,16 +19,6 @@ export default class Carousel
     this.$element = $elem
 
     this.panel = new Panel(this, $elem)
-    
-    //外枠の高さを切り詰める
-    const height = $elem.attr('data-height')
-    if(!height){
-      throw new Error("Missing data-height attribute in " + this._jqueryToString(this.$element))
-    }
-    this.$element.height(height)
-    this.$element.css({
-      overflow: 'hidden'
-    })
 
     //マウスオーバー時は止める
     //タッチ時にtouchstart>touchend>mouseenterという謎な順で発生し変な挙動になるので、タッチデバイスではやらない。
@@ -65,10 +55,11 @@ export default class Carousel
 
       const currentLeaf = this._currentPanels[this._currentPanels.length - 1]
       let nextIndex = this.leafs.indexOf(currentLeaf) + 1
-      if(!this.leafs[nextIndex]){
-        nextIndex = 0
+      if(this.leafs[nextIndex]){
+        this.leafs[nextIndex].display()
+      } else {
+        this.panel.childPanels[0].display()
       }
-      this.leafs[nextIndex].display()
 
       this._next()
 

@@ -1,10 +1,10 @@
 .sdx-carousel{
   position: relative;
+  overflow: hidden;
 }
 
 .sdx-carousel-panel{
   position: absolute;
-  height: 100%;
   width: 100%;
   &.sdx-carousel-current{
     z-index: 1;
