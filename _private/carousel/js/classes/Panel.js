@@ -44,15 +44,6 @@ export default class Panel
     return this.childPanels.length === 0
   }
 
-  //直系の親パネルを集める。
-  assembleDirectParents(parents){
-    let parent = this.parentPanel
-    while(parent){
-      parents.push(parent)
-      parent = parent.parentPanel
-    }
-  }
-
   //直系の子要素を集める。
   assembleLeafs(leafs){
     if(this.isLeaf){
@@ -64,22 +55,25 @@ export default class Panel
 
   //ルートのパネル
   get rootPanel(){
-    const parents = []
-    this.assembleDirectParents(parents)
-    if(parents.length === 0){
+    if(!this.parentPanel){
       return this
     }
 
-    return parents[parents.length - 1]
+    let parent = this.parentPanel
+    while(parent.parentPanel){
+      parent = parent.parentPanel
+    }
+
+    return parent
   }
 
   //直系の親パネルに対して順にメソッドを実行する。
   ascend(callback){
-    const parents = []
-    this.assembleDirectParents(parents)
-    $.each(parents, (key, panel) => {
-      callback(panel)
-    })
+    let parent = this.parentPanel
+    while(parent){
+      callback(parent)
+      parent = parent.parentPanel
+    }
   }
 
   //指定したインデックスの子パネルに対して順にメソッドを実行する
