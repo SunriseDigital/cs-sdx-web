@@ -1,0 +1,12 @@
+.sdx-carousel {
+  position: relative;
+}
+
+.sdx-carousel-panel {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+.sdx-carousel-panel.sdx-carousel-current {
+  z-index: 1;
+}

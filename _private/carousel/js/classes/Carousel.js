@@ -16,8 +16,7 @@ export default class Carousel
     this._clickingButton = false
 
     this.$element = $elem
-    //一番外枠はrelative。下層は全てabsolute
-    this.$element.css({position: 'relative'})
+
     this.panel = new Panel(this, $elem)
     
     //外枠の高さを切り詰める

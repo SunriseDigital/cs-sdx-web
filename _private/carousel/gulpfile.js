@@ -33,7 +33,7 @@ gulp.task('build-sass', function() {
 });
 
 gulp.task('watch-sass', function() {
-  gulp.watch(['sass/*.scss', 'sass/**/*.scss']);
+  gulp.watch(['sass/*.scss', 'sass/**/*.scss'], ['build-sass']);
 });
 
 gulp.task('build-src', function() {

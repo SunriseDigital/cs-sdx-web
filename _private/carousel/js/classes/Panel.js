@@ -8,10 +8,6 @@ export default class Panel
     
     this.parentPanel = parentPanel
     if(this.parentPanel){
-      this.$element.css({
-        position: 'absolute',
-        width: '100%'
-      })
       this.$button = this.$element.find('> .sdx-carousel-btn')
       //ボタンは親のラッパーに突っ込みます。押した時にまるっと子パネルを入れ替えるからです。
       this.parentPanel.$buttonsWrapper.append(this.$button)
@@ -96,7 +92,6 @@ export default class Panel
 
   //エレメントを見える状態にしてクラスを付与。
   _show(){
-    this.$element.css({zIndex: 1})
     this.$element.addClass('sdx-carousel-current')
     if(this.$button){
       this.$button.addClass('sdx-carousel-current')
@@ -108,10 +103,8 @@ export default class Panel
   }
 
   display(){
-    //sdx-carousel-currentのz-indexをクリアしてクラスを外す。
-    const $currents = this.rootPanel.$element.find('.sdx-carousel-current')
-    $currents.filter('.sdx-carousel-panel').css({zIndex: ''})
-    $currents.removeClass('sdx-carousel-current')
+    //sdx-carousel-currentのクラスを外す。
+    this.rootPanel.$element.find('.sdx-carousel-current').removeClass('sdx-carousel-current')
 
     //各パネルのエレメントを表示状態へ
     this._show()

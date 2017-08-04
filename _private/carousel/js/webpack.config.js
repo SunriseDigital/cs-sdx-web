@@ -2,7 +2,7 @@ var webpack = require("webpack");
 
 module.exports = {
   output: {
-      filename: 'index.js'
+      filename: 'app.js'
   },
   resolve: {
     extensions: [".js"]
