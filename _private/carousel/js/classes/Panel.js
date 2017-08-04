@@ -3,12 +3,16 @@ export default class Panel
   constructor(carousel, $elem, parentPanel) {
     this.carousel = carousel
     this.$element = $elem
-
-    this.$element.on('transitionend', (e) => {
-      this.$element.removeClass('sdx-carousel-ready')
-      this.$element.removeClass('sdx-carousel-start')
-      this._clearBeforePanels();
-    })
+ 
+    if(this.carousel._transitionDuration){
+      
+      this.$element.css({'transitionDuration': this.carousel._transitionDuration})
+      this.$element.on('transitionend', (e) => {
+        this.$element.removeClass('sdx-carousel-ready')
+        this.$element.removeClass('sdx-carousel-start')
+        this._clearBeforePanels();
+      })
+    }
 
     this._beforePanels = []
 
@@ -164,10 +168,12 @@ export default class Panel
           this.descend(0, panel => panel._show())
           this._clearBeforePanels()
         } else {
-          // console.log('anim')
-          this._startShow(() => {
+          this._startShow()
+          if(!this.carousel._transitionDuration){
+            this.$element.removeClass('sdx-carousel-ready')
+            this.$element.removeClass('sdx-carousel-start')
             this._clearBeforePanels()
-          })
+          }
         }
       }
     }

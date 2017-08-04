@@ -18,6 +18,8 @@ export default class Carousel
 
     this.$element = $elem
 
+    this._transitionDuration = this.$element.attr('data-transition-duration')
+
     this.panel = new Panel(this, $elem)
 
     //マウスオーバー時は止める
