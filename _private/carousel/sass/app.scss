@@ -10,3 +10,16 @@
     z-index: 1;
   }
 }
+
+.sdx-carousel-panel.sdx-carousel-ready{
+  z-index: 2;
+}
+
+.sdx-carousel-ready{
+  left: 100%;
+  transition: left 200ms ease-in;
+}
+
+.sdx-carousel-start{
+  left: 0px;
+}

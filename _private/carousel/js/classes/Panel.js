@@ -4,6 +4,15 @@ export default class Panel
     this.carousel = carousel
     this.$element = $elem
 
+    this.$element.on('transitionend', (e) => {
+      this.$element.removeClass('sdx-carousel-ready')
+      this.$element.removeClass('sdx-carousel-start')
+      this._clearBefore();
+    })
+
+    // this.showing = false
+    this._beforePanels = []
+
     this.$buttonsWrapper = this.$element.find('> .sdx-carousel-btnWrapper')
     
     this.parentPanel = parentPanel
@@ -42,6 +51,10 @@ export default class Panel
   //枝葉パネルかどうかのチェック。
   get isLeaf(){
     return this.childPanels.length === 0
+  }
+
+  get isRoot(){
+    return this.parentPanel === undefined
   }
 
   //直系の子要素を集める。
@@ -86,23 +99,54 @@ export default class Panel
 
   //エレメントを見える状態にしてクラスを付与。
   _show(){
+    this.carousel._currentPanels.push(this)
     this.$element.addClass('sdx-carousel-current')
     if(this.$button){
       this.$button.addClass('sdx-carousel-current')
     }
+  }
 
-    if(this.isLeaf){
-      this.carousel._currentLeaf = this;
-    }
+  _startShow(callback){
+    // this.showing = true
+    this.$element.addClass('sdx-carousel-ready')
+    this._show()
+    this.descend(0, panel => panel._show())
+
+    setTimeout(() => {
+      this.$element.addClass('sdx-carousel-start')
+    }, 80)
+  }
+
+  _clearBefore(){
+    $.each(this._beforePanels, (key, panel) => {
+      if(this.carousel._currentPanels.indexOf(panel) === -1){
+        panel.$element.removeClass('sdx-carousel-current')
+        panel.$button.removeClass('sdx-carousel-current')
+      }
+    })
+
+    this._beforePanels = []
   }
 
   display(){
-    //sdx-carousel-currentのクラスを外す。
-    this.rootPanel.$element.find('.sdx-carousel-current').removeClass('sdx-carousel-current')
+    if(this._beforePanels.length){
+      return
+    }
+    
+    this._beforePanels = this.carousel._currentPanels
+    this.carousel._currentPanels = []
 
     //各パネルのエレメントを表示状態へ
-    this._show()
     this.ascend(panel => panel._show())
-    this.descend(0, panel => panel._show())
+
+    if(this.isRoot){
+      this._show()
+      this.descend(0, panel => panel._show())
+      this._clearBefore()
+    } else {
+      this._startShow(() => {
+        this._clearBefore()
+      })
+    }
   }
 }

@@ -11,7 +11,8 @@ export default class Carousel
     //スライドショーの繰り返しはインターバルではなくTimeoutを再帰的に読んで実現しています。そのクリア用のキー。
     this._runTimeoutKey = -1
     //現在表示中の枝葉パネルを保持しています。止まったとき続きから再生するため。
-    this._currentLeaf = undefined
+    // this._currentLeaf = undefined
+    this._currentPanels = []
     //DOM上のボタンを押すとmouseleaveが発生してしまうのでクリック時にフラグを立て発生を抑止。
     this._clickingButton = false
 
@@ -62,7 +63,8 @@ export default class Carousel
         return
       }
 
-      let nextIndex = this.leafs.indexOf(this._currentLeaf) + 1
+      const currentLeaf = this._currentPanels[this._currentPanels.length - 1]
+      let nextIndex = this.leafs.indexOf(currentLeaf) + 1
       if(!this.leafs[nextIndex]){
         nextIndex = 0
       }
