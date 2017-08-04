@@ -144,24 +144,31 @@ export default class Panel
     } else {
       const parents = []
       this.ascend(p => parents.push(p))
-      
-      //クラスを外すので直前のパネルをとっておく。
-      this._beforePanels = this.carousel._currentPanels
-      //今回表示されるパネルを階層で保持。
-      this.carousel._currentPanels = []
 
-      //各パネルのエレメントを表示状態へ
-      $.each(parents, (key, panel) => panel._show())
-
-      if(this.isRoot){
-        this._show()
-        this.descend(0, panel => panel._show())
-        this._clearBeforePanels()
+      //スライドショーの時表示されてない一番上の親を表示しないと親のパネルのz-indexが2にならないのでアニメーション時にボタン部分が見えない。
+      //ただしそれが起こるのはスライドショーの時のみ。ボタンで切り替えるときは親パネルにボタンがあるので、親が見えないとクリックできない。
+      const hiddenParents = parents.filter(p => !p.$element.is('.sdx-carousel-current'))
+      if(hiddenParents.length){
+        hiddenParents[0].display()
       } else {
-        // console.log('anim')
-        this._startShow(() => {
+        //クラスを外すので直前のパネルをとっておく。
+        this._beforePanels = this.carousel._currentPanels
+        //今回表示されるパネルを階層で保持。
+        this.carousel._currentPanels = []
+
+        //各パネルのエレメントを表示状態へ
+        $.each(parents, (key, panel) => panel._show())
+
+        if(this.isRoot){
+          this._show()
+          this.descend(0, panel => panel._show())
           this._clearBeforePanels()
-        })
+        } else {
+          // console.log('anim')
+          this._startShow(() => {
+            this._clearBeforePanels()
+          })
+        }
       }
     }
   }
