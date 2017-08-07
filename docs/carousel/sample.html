@@ -3,10 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <title>Carousel sample</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="lib/app.css" />
   <script src="//code.jquery.com/jquery-1.9.1.js"></script>
-  <script src="/sdx/carousel/index.js"></script>
+  <script src="lib/app.js"></script>
   <script>
     $(function(){
       $('.wrapper').each(function(key, elem){
@@ -23,16 +25,25 @@
     })
   </script>
   <style>
+    .sdx-carousel{
+      height: 280px;
+      width: 80%;
+      margin: 30px auto;
+    }
+
     .first{
-      background-color: rgb(87.1%, 99.1%, 87.1%)
+      background-color: rgb(87.1%, 99.1%, 87.1%);
+      height: 240px;
     }
 
     .second{
-      background-color: rgb(78.4%, 84.9%, 100%)
+      background-color: rgb(78.4%, 84.9%, 100%);
+      height: 200px;
     }
 
     .third{
-      background-color: rgb(100%, 90.5%, 84.3%)
+      background-color: rgb(100%, 90.5%, 84.3%);
+      height: 160px;
     }
 
     .sdx-carousel-btnWrapper{
@@ -42,12 +53,7 @@
     }
 
     .display{
-      height: 120px
-    }
-
-    .sdx-carousel{
-      width: 600px;
-      margin: 30px auto;
+      height: 100%;
     }
 
     .btn.sdx-carousel-current{
@@ -60,32 +66,32 @@
   <div>
     <div class="btn btn-info start">START</div><div class="btn btn-danger stop">STOP</div>
   </div>
-  <div class="sdx-carousel" data-height="240" data-interval="300">
+  <div class="sdx-carousel" data-interval="1000"å>
     <div class="sdx-carousel-btnWrapper"></div>
     
-    <div class="sdx-carousel-panel first">
+    <div class="sdx-carousel-panel first _1">
       <div class="sdx-carousel-btnWrapper"></div>
-      <div class="sdx-carousel-btn btn btn-primary">First 1</div>
+      <div class="sdx-carousel-btn btn btn-sm btn-primary">First 1</div>
       
-      <div class="sdx-carousel-panel second">
+      <div class="sdx-carousel-panel second _1">
         <div class="sdx-carousel-btnWrapper"></div>
         <div class="sdx-carousel-btn btn btn-success">Second 1</div>
         
-        <div class="sdx-carousel-panel third">
+        <div class="sdx-carousel-panel third _1">
           <div class="sdx-carousel-btn btn btn-default">Third 1</div>
           <div class="display">
             first1/second1/third1
           </div>
         </div>
         
-        <div class="sdx-carousel-panel third">
+        <div class="sdx-carousel-panel third _2">
           <div class="sdx-carousel-btn btn btn-default">Third 2</div>
           <div class="display">
             first1/second1/third2
           </div>
         </div>
         
-        <div class="sdx-carousel-panel third">
+        <div class="sdx-carousel-panel third _3">
           <div class="sdx-carousel-btn btn btn-default">Third 3</div>
           <div class="display">
             first1/second1/third3
@@ -94,25 +100,25 @@
         
       </div>
       
-      <div class="sdx-carousel-panel second">
+      <div class="sdx-carousel-panel second _2">
         <div class="sdx-carousel-btnWrapper"></div>
         <div class="sdx-carousel-btn btn btn-success">Second 2</div>
         
-        <div class="sdx-carousel-panel third">
+        <div class="sdx-carousel-panel third _4">
           <div class="sdx-carousel-btn btn btn-default">Third 4</div>
           <div class="display">
             first1/second2/third4
           </div>
         </div>
         
-        <div class="sdx-carousel-panel third">
+        <div class="sdx-carousel-panel third _5">
           <div class="sdx-carousel-btn btn btn-default">Third 5</div>
           <div class="display">
             first1/second2/third5
           </div>
         </div>
         
-        <div class="sdx-carousel-panel third">
+        <div class="sdx-carousel-panel third _6">
           <div class="sdx-carousel-btn btn btn-default">Third 6</div>
           <div class="display">
             first1/second2/third6
@@ -121,25 +127,25 @@
         
       </div>
       
-      <div class="sdx-carousel-panel second">
+      <div class="sdx-carousel-panel second _3">
         <div class="sdx-carousel-btnWrapper"></div>
         <div class="sdx-carousel-btn btn btn-success">Second 3</div>
         
-        <div class="sdx-carousel-panel third">
+        <div class="sdx-carousel-panel third _7">
           <div class="sdx-carousel-btn btn btn-default">Third 7</div>
           <div class="display">
             first1/second3/third7
           </div>
         </div>
         
-        <div class="sdx-carousel-panel third">
+        <div class="sdx-carousel-panel third _8">
           <div class="sdx-carousel-btn btn btn-default">Third 8</div>
           <div class="display">
             first1/second3/third8
           </div>
         </div>
         
-        <div class="sdx-carousel-panel third">
+        <div class="sdx-carousel-panel third _9">
           <div class="sdx-carousel-btn btn btn-default">Third 9</div>
           <div class="display">
             first1/second3/third9
@@ -150,56 +156,36 @@
       
     </div>
     
-    <div class="sdx-carousel-panel first">
+    <div class="sdx-carousel-panel first _2">
       <div class="sdx-carousel-btnWrapper"></div>
-      <div class="sdx-carousel-btn btn btn-primary">First 2</div>
+      <div class="sdx-carousel-btn btn btn-sm btn-primary">First 2</div>
       
-      <div class="sdx-carousel-panel second">
-        <div class="sdx-carousel-btnWrapper"></div>
+      <div class="sdx-carousel-panel second _4">
         <div class="sdx-carousel-btn btn btn-success">Second 4</div>
-        
-        <div class="sdx-carousel-panel third">
-          <div class="sdx-carousel-btn btn btn-default">Third 10</div>
-          <div class="display">
-            first2/second4/third10
-          </div>
+        <div class="display">
+          first2/second4
         </div>
-        
-        <div class="sdx-carousel-panel third">
-          <div class="sdx-carousel-btn btn btn-default">Third 11</div>
-          <div class="display">
-            first2/second4/third11
-          </div>
-        </div>
-        
-        <div class="sdx-carousel-panel third">
-          <div class="sdx-carousel-btn btn btn-default">Third 12</div>
-          <div class="display">
-            first2/second4/third12
-          </div>
-        </div>
-        
       </div>
       
-      <div class="sdx-carousel-panel second">
+      <div class="sdx-carousel-panel second _5">
         <div class="sdx-carousel-btnWrapper"></div>
         <div class="sdx-carousel-btn btn btn-success">Second 5</div>
         
-        <div class="sdx-carousel-panel third">
+        <div class="sdx-carousel-panel third _13">
           <div class="sdx-carousel-btn btn btn-default">Third 13</div>
           <div class="display">
             first2/second5/third13
           </div>
         </div>
         
-        <div class="sdx-carousel-panel third">
+        <div class="sdx-carousel-panel third _14">
           <div class="sdx-carousel-btn btn btn-default">Third 14</div>
           <div class="display">
             first2/second5/third14
           </div>
         </div>
         
-        <div class="sdx-carousel-panel third">
+        <div class="sdx-carousel-panel third _15">
           <div class="sdx-carousel-btn btn btn-default">Third 15</div>
           <div class="display">
             first2/second5/third15
@@ -208,25 +194,25 @@
         
       </div>
       
-      <div class="sdx-carousel-panel second">
+      <div class="sdx-carousel-panel second _6">
         <div class="sdx-carousel-btnWrapper"></div>
         <div class="sdx-carousel-btn btn btn-success">Second 6</div>
         
-        <div class="sdx-carousel-panel third">
+        <div class="sdx-carousel-panel third _16">
           <div class="sdx-carousel-btn btn btn-default">Third 16</div>
           <div class="display">
             first2/second6/third16
           </div>
         </div>
         
-        <div class="sdx-carousel-panel third">
+        <div class="sdx-carousel-panel third _17">
           <div class="sdx-carousel-btn btn btn-default">Third 17</div>
           <div class="display">
             first2/second6/third17
           </div>
         </div>
         
-        <div class="sdx-carousel-panel third">
+        <div class="sdx-carousel-panel third _18">
           <div class="sdx-carousel-btn btn btn-default">Third 18</div>
           <div class="display">
             first2/second6/third18
@@ -236,30 +222,37 @@
       </div>
       
     </div>
+
+    <div class="sdx-carousel-panel first others">
+      <div class="sdx-carousel-btn btn btn-sm btn-primary">First Others</div>
+      <div class="display">
+        First Others
+      </div>
+    </div>
     
-    <div class="sdx-carousel-panel first">
+    <div class="sdx-carousel-panel first _3">
       <div class="sdx-carousel-btnWrapper"></div>
-      <div class="sdx-carousel-btn btn btn-primary">First 3</div>
+      <div class="sdx-carousel-btn btn btn-sm btn-primary">First 3</div>
       
-      <div class="sdx-carousel-panel second">
+      <div class="sdx-carousel-panel second _7">
         <div class="sdx-carousel-btnWrapper"></div>
         <div class="sdx-carousel-btn btn btn-success">Second 7</div>
         
-        <div class="sdx-carousel-panel third">
+        <div class="sdx-carousel-panel third _19">
           <div class="sdx-carousel-btn btn btn-default">Third 19</div>
           <div class="display">
             first3/second7/third19
           </div>
         </div>
         
-        <div class="sdx-carousel-panel third">
+        <div class="sdx-carousel-panel third _20">
           <div class="sdx-carousel-btn btn btn-default">Third 20</div>
           <div class="display">
             first3/second7/third20
           </div>
         </div>
         
-        <div class="sdx-carousel-panel third">
+        <div class="sdx-carousel-panel third _21">
           <div class="sdx-carousel-btn btn btn-default">Third 21</div>
           <div class="display">
             first3/second7/third21
@@ -268,25 +261,25 @@
         
       </div>
       
-      <div class="sdx-carousel-panel second">
+      <div class="sdx-carousel-panel second _8">
         <div class="sdx-carousel-btnWrapper"></div>
         <div class="sdx-carousel-btn btn btn-success">Second 8</div>
         
-        <div class="sdx-carousel-panel third">
+        <div class="sdx-carousel-panel third _22">
           <div class="sdx-carousel-btn btn btn-default">Third 22</div>
           <div class="display">
             first3/second8/third22
           </div>
         </div>
         
-        <div class="sdx-carousel-panel third">
+        <div class="sdx-carousel-panel third _23">
           <div class="sdx-carousel-btn btn btn-default">Third 23</div>
           <div class="display">
             first3/second8/third23
           </div>
         </div>
         
-        <div class="sdx-carousel-panel third">
+        <div class="sdx-carousel-panel third _24">
           <div class="sdx-carousel-btn btn btn-default">Third 24</div>
           <div class="display">
             first3/second8/third24
@@ -295,25 +288,25 @@
         
       </div>
       
-      <div class="sdx-carousel-panel second">
+      <div class="sdx-carousel-panel second _9">
         <div class="sdx-carousel-btnWrapper"></div>
         <div class="sdx-carousel-btn btn btn-success">Second 9</div>
         
-        <div class="sdx-carousel-panel third">
+        <div class="sdx-carousel-panel third _25">
           <div class="sdx-carousel-btn btn btn-default">Third 25</div>
           <div class="display">
             first3/second9/third25
           </div>
         </div>
         
-        <div class="sdx-carousel-panel third">
+        <div class="sdx-carousel-panel third _26">
           <div class="sdx-carousel-btn btn btn-default">Third 26</div>
           <div class="display">
             first3/second9/third26
           </div>
         </div>
         
-        <div class="sdx-carousel-panel third">
+        <div class="sdx-carousel-panel third _27">
           <div class="sdx-carousel-btn btn btn-default">Third 27</div>
           <div class="display">
             first3/second9/third27

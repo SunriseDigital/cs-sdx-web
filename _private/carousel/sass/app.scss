@@ -17,7 +17,9 @@
 
 .sdx-carousel-ready{
   left: 100%;
-  transition: left 200ms ease-in;
+  transition-property: left;
+  transition-timing-function: ease-in;
+  transition-delay: 0;
 }
 
 .sdx-carousel-start{
