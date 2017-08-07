@@ -16,5 +16,5 @@
   * `sdx-carousel`を一番外側のラッパーにつけます。
   * `sdx-carousel-panel`が一つのコンテンツを表します。
   * `sdx-carousel-btn`は切り替えボタンです。ボタンは親パネルの`sdx-carousel-btnWrapper`に移動されますので注意してください。
-* 各パネルの[高さ](./sample.html#L28-L47)を指定する必要があります。
+* ラッパー及び各パネルは[高さ](./sample.html#L28-L47)を指定する必要があります。
 * 現在表示中のパネル・ボタンには`sdx-carousel-current`のクラスが付与されます。
