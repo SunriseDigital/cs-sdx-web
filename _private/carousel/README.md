@@ -18,3 +18,5 @@
   * `sdx-carousel-btn`は切り替えボタンです。ボタンは親パネルの`sdx-carousel-btnWrapper`に移動されますので注意してください。
 * ラッパー及び各パネルは[高さ](./sample.html#L28-L47)を指定する必要があります。
 * 現在表示中のパネル・ボタンには`sdx-carousel-current`のクラスが付与されます。
+* data-interval属性で切り替え時間を指定可能です。単位はミリ秒。
+* data-transition-durationを指定するとアニメーションをONできます。表記方法はCSSと同じです。
