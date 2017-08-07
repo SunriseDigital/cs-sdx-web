@@ -1,0 +1,27 @@
+.sdx-carousel{
+  position: relative;
+  overflow: hidden;
+}
+
+.sdx-carousel-panel{
+  position: absolute;
+  width: 100%;
+  &.sdx-carousel-current{
+    z-index: 1;
+  }
+}
+
+.sdx-carousel-panel.sdx-carousel-ready{
+  z-index: 2;
+}
+
+.sdx-carousel-ready{
+  left: 100%;
+  transition-property: left;
+  transition-timing-function: ease-in;
+  transition-delay: 0;
+}
+
+.sdx-carousel-start{
+  left: 0px;
+}
