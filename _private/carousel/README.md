@@ -10,8 +10,8 @@
 
 ## 使い方
 
-* [carousel/app.min.css](../../carousel.app.min.css)を読み込む。
-* [carousel/app.min.js](../../carousel.app.min.js)を読み込む。
+* [carousel/app.min.css](../../carousel/app.min.css)を読み込む。
+* [carousel/app.min.js](../../carousel/app.min.js)を読み込む。
 * HTMLの構造は[sample.html](./sample.html)を参考にしてください。`sdx-`接頭辞のついた下記の4つのクラスは必須です。
   * `sdx-carousel`を一番外側のラッパーにつけます。
   * `sdx-carousel-panel`が一つのコンテンツを表します。
