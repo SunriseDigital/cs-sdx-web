@@ -44,6 +44,7 @@ export default class TextEditor extends Component {
         <input
           type="text"
           name={this.props.name}
+          value={this.props.value}
           placeholder={this.props.placeholder}
           onChange={(e) => this.onChange(e)}
           onKeyDown={(e) => this.onKeyDown(e)}
