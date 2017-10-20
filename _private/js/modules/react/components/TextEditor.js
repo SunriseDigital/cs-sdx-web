@@ -30,15 +30,14 @@ export default class TextEditor extends Component {
       return (
         <textarea
           name={this.props.name}
+          value={this.props.value}
           rows={this.props.rows}
           cols={this.props.cols}
           placeholder={this.props.placeholder}
           onChange={(e) => this.onChange(e)}
           onKeyDown={(e) => this.onKeyDown(e)}
           onKeyUp={(e) => this.onKeyUp(e)}
-        >
-          {this.props.value}
-        </textarea>
+        />
       )
     } else {
       return (
