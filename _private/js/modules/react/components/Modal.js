@@ -18,6 +18,15 @@ export default class Modal extends Component {
         zIndex                : '10010'
       }
     };
+    if (this.props.style){
+      if(this.props.style.content){
+        this.style.content = assign(this.style.content, this.props.style.content);
+      }
+
+      if(this.props.style.overlay){
+        this.style.overlay = assign(this.style.overlay, this.props.style.overlay);
+      }
+    }
   }
 
   componentWillMount() {
