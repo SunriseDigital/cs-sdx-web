@@ -16,7 +16,7 @@ export default class TextEditor extends Component {
 
   onKeyUp(e){
     if (!this.keepInputIme && e.key === "Enter") {
-      this.props.onPressEnterKey(e);
+      this.props.onPressEnterKey && this.props.onPressEnterKey(e);
     }
     this.keepInputIme = false;
   }
