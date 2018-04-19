@@ -1,0 +1,21 @@
+{
+  "name": "@sunrise-digital/sdx-react",
+  "version": "0.2.2",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SunriseDigital/sdxweb.git"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/SunriseDigital/sdxweb/issues"
+  },
+  "homepage": "https://github.com/SunriseDigital/sdxweb#readme",
+  "dependencies": {
+    "react-draggable": "^3.0.3"
+  }
+}
